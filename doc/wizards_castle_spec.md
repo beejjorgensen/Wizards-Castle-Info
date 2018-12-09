@@ -17,12 +17,12 @@ D&D-style die rolls are used in this spec, e.g. `2d6`.
 
 ## Unknowns
 
-### `"_(CSSLFF4`
+### `REM"_(C2SLFF4`
 
 The first line of the program is:
 
 ```basic
-10 REM "_(C2SLFF4
+10 REM"_(C2SLFF4
 ```
 
 Some kind of magic number for Exidy Sorcerer BASIC?
