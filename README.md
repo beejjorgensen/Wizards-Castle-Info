@@ -8,8 +8,8 @@ any other game, so I'm definitely an enthusiast.
 All the information presented here is in the interest of preserving this
 piece of computing history.
 
-My main contribution here is the (ongoing) production of a game spec
-that describes in detail the rules for the game.
+My main contribution here is the production of a spec that describes in
+detail the rules for the game.
 
 --Brian "Beej Jorgensen" Hall, <beej@beej.us>
 
