@@ -189,9 +189,34 @@ If you drink from a pool, one of 8 things happen with equal probability.
 | Feel Nimbler  | Add 1d3 to DX, capped at 18                |
 | Feel Clumsier | Subtract 1d3 from DX                       |
 | Change Race   | Change your race to something you're not   |
-| Change gender | Change your gender to something you're not |
+| Change Gender | Change your gender to something you're not |
 
 #### Chest
+
+If the player opens a chest, there are diffent chances of different effects.
+
+| Probability | Effect            |
+|:-----------:|-------------------|
+|    1/4      | Chest explodes    |
+|    1/4      | Poison gas        |
+|    1/2      | Contains treasure |
+
+##### Exploding chest
+
+1. Compute damage: 1d6 - Armor Value, clamped at 0.
+2. Subtract damage from ST (might result in death).
+3. Subtract damage from Armor Durability (might result in armor being
+   destroyed).
+
+##### Poison gas chest
+
+1. Add 20 to turn counter.
+2. Move the player a random direction (N, S, W, E) as if the player had walked
+   that way.
+
+##### Treasure chest
+
+Collect 1d1000 gold pieces.
 
 #### Warp
 
