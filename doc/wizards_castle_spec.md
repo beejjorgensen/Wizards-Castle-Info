@@ -155,26 +155,47 @@ Potential algorithm:
 
 Historic graphic character corresponding to the item shown.
 
-| Room              | Character | Notes              |
-|-------------------|:---------:|--------------------|
-| Empty room        |    `.`    |                    |
-| Entrance          |    `E`    |                    |
-| Stairs going up   |    `U`    |                    |
-| Stairs going down |    `D`    |                    |
-| Pool              |    `P`    |                    |
-| Chest             |    `C`    |                    |
-| Gold pieces       |    `G`    |                    |
-| Flares            |    `F`    |                    |
-| Warp              |    `W`    |                    |
-| Sinkhole          |    `S`    |                    |
-| Crystal orb       |    `O`    | Not the Orb of Zot |
-| Book              |    `B`    |                    |
+| Room              | Character | Notes                                        |
+|-------------------|:---------:|----------------------------------------------|
+| Empty room        |    `.`    |                                              |
+| Entrance          |    `E`    | See below                                    |
+| Stairs going up   |    `U`    |                                              |
+| Stairs going down |    `D`    |                                              |
+| Pool              |    `P`    | See below                                    |
+| Chest             |    `C`    | See below                                    |
+| Gold pieces       |    `G`    | Pick up 1d10 gold pieces, mark room as empty |
+| Flares            |    `F`    | Pick up 1d5 flares, mark room as empty       |
+| Warp              |    `W`    | See below                                    |
+| Sinkhole          |    `S`    | See below                                    |
+| Crystal orb       |    `O`    | See below                                    |
+| Book              |    `B`    | See below                                    |
+
+#### Entrance
+
+If you go north from this room, you exit the dungeon and the game is over.
+
+If you possess The Orb of Zot when you exit, you win. If you do not, you lose.
+
+#### Pool
+
+#### Chest
+
+#### Warp
+
+#### Sinkhole
+
+#### Crystal Orb
+
+These orbs are _not_ The Orb of Zot.
+
+#### Book
 
 #### The Orb of Zot
 
 One of the warps contains the Orb of Zot.
 
-If you teleport into this warp, you obtain the Orb of Zot and the Runestaff vanishes.
+If you teleport into this warp, you obtain the Orb of Zot and the Runestaff
+vanishes. In addition, the warp turns into an empty room.
 
 If you enter the warp by any other means, you pass out the other side in
 the direction last walked (N, S, W, or E), remaining in all cases on the
@@ -254,23 +275,48 @@ Initial Cost is computed as `weapon_num * 10`.
 
 ## Armor
 
-REM 5 - NO ARMOR
-REM 6 - LEATHER
-REM 7 - CHAINMAIL
-REM 8 - PLATE
+| # | Armor     | Protection | Durability | Initial Price | Vendor Price |
+|:-:|-----------|:----------:|:----------:|:-------------:|:------------:|
+| 1 | Leather   |      1     |      7     |       10      |     1250     |
+| 2 | Chainmail |      2     |     14     |       20      |     1500     |
+| 3 | Plate     |      3     |     21     |       30      |     2000     |
+
+Protection is computed as `armor_num`.
+
+Durability is computed as `armor_num * 7`.
+
+Initial Price is computed as `armor_num * 10`.
+
+Armor will deflect its Protection rating in points of damage when hit.
+
+Points of damage absorbed are subtracted from the Durability value. When
+Durability falls to 0, the armor is destroyed.
 
 ## Recipes
 
-REM RECIPES
-REM
-REM 1 - WICH
-REM 2 - STEW
-REM 3 - SOUP
-REM 4 - BURGER
-REM 5 - ROAST
-REM 6 - MUNCHY
-REM 7 - TACO
-REM 8 - PIE
+If more than 60 turns had elapsed since the last kill OR it was the first kill
+of the game, the player would see a message similar to this when a monster was
+killed:
+
+```
+YOU SPEND AN HOUR EATING KOBOLD STEW
+```
+
+This message was constructed by choosing a random monster and a random suffix,
+below. The suffix `WICH` was appended directly to the monster name (e.g.
+`BEARWICH`), while the others were separated by a space (e.g. `GARGOYLE ROAST`).
+
+| Recipe | Note                                     |
+|--------|------------------------------------------|
+| wich   | No space between monster name and `wich` |
+| Stew   |                                          |
+| Soup   |                                          |
+| Burger |                                          |
+| Roast  |                                          |
+| Munchy |                                          |
+| Taco   |                                          |
+| Pie    |                                          |
+
 
 ## Character Generation
 
@@ -283,12 +329,46 @@ REM 4 - DWARF
 
 ## Curses
 
-REM Curses in the C() array, first index
-REM
-REM 1 - Lethargy
-REM 2 - Leech
-REM 3 - Forgetfullness
+There are three curses, each one located in a random empty room in the dungeon.
+If you enter this room, you catch the curse.
 
+| Curse         | Warding Treasure | Effect                                                       |
+|---------------|------------------|--------------------------------------------------------------|
+| Lethargy      | The Ruby Red     | Monsters attack first, turn counter increases by 2 each turn |
+| The Leech     | The Pale Pearl   | Lose 1d5 gold pieces per turn                                |
+| Forgetfulness | The Green Gem    | Each turn, mark a random room as unexplored                  |
+
+With Forgetfulness, the random room is marked unexplored even if it was already
+unexplored.
+
+Possessing the Warding Treasure causes the effects of the curse to be ignored that turn.
+
+Curses are never cured.
+
+If you have the curse and you sell/bribe with the Warding Treasure, the effects
+of the curse will start again.
+
+> The original code for this seems to have a bug:
+>
+> ```basic
+> 680 IF PEEK(FND(Z)) = 1 THEN FOR Q = 1 TO 3: C(Q,4) = -(C(Q,1)=X) * (C(Q,2)=Y) * (C(Q,3)=Z): NEXT
+> ```
+>
+> This is saying, if this is an empty room, then Curse `Q` is active if the player
+> X, Y, and Z are the same as Curse `Q`'s X, Y, and Z.
+>
+> (`-1` and `0` are TRUE and FALSE in BASIC boolean expressions.)
+>
+> Sounds reasonable.
+>
+> But it's also saying, if this is an empty room, then Curse `Q` is **inactive**
+> if the player X, Y, and Z are **not** the same as Curse `Q`'s X, Y, and Z.
+>
+> So you are cured of the curse when you step into another, non-cursed empty
+> room, which doesn't sound nearly as reasonable.
+>
+> The rest of the code seems to assume that the curse is never cured and that the
+> treasures simply cause the effects to be ignored. 
 
 ## Actions
 
