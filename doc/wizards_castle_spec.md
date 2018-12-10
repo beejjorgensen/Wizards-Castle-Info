@@ -178,6 +178,19 @@ If you possess The Orb of Zot when you exit, you win. If you do not, you lose.
 
 #### Pool
 
+If you drink from a pool, one of 8 things happen with equal probability.
+
+| Pool Effect   | Description                                |
+|---------------|--------------------------------------------|
+| Feel Stronger | Add 1d3 to ST, capped at 18                |
+| Feel Weaker   | Subtract 1d3 from ST                       |
+| Feel Smarter  | Add 1d3 to IQ, capped at 18                |
+| Feel Dumber   | Subtract 1d3 from IQ                       |
+| Feel Nimbler  | Add 1d3 to DX, capped at 18                |
+| Feel Clumsier | Subtract 1d3 from DX                       |
+| Change Race   | Change your race to something you're not   |
+| Change gender | Change your gender to something you're not |
+
 #### Chest
 
 #### Warp
