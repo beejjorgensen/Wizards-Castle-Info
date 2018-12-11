@@ -323,7 +323,15 @@ Damage is computed as `1 + INT(monster_num / 2)`.
 ### The Runestaff
 
 One of the monsters (not counting vendors) holds The Runestaff. When
-this monster is killed, the Runstaff is transferred to the player.
+this monster is killed, the Runestaff is transferred to the player.
+
+The Runestaff can be used to teleport to any X, Y, Z location.
+
+If the destination is **not** The Orb of Zot location, then room effects take
+place as if the player had walked into that room.
+
+If the destination is The Orb of Zot, the Runestaff vanishes, and the Orb of Zot
+is transferred to the player.
 
 ### Vendors
 
