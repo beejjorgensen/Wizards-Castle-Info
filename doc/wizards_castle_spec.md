@@ -242,6 +242,17 @@ enters one, they "fall" to the topmost level.
 
 These orbs are _not_ The Orb of Zot.
 
+Orb effects happen at an even 1/6 chance.
+
+| Effect                           | Result/Notes                                          |
+|----------------------------------|-------------------------------------------------------|
+| See yourself in a bloody heap    | Lose 1d2 ST, room is marked as empty (orb removed)    |
+| See yourself becoming a monster  | Type of monster chosen at random                      |
+| See a monster gazing back at you | Type of monster chosen at random                      |
+| An item at a location            | Location chosen randomly, marked as explored on map   |
+| The Orb of Zot at a location     | 3/8 chance this is the real location, else it's a lie |
+| A soap opera rerun               | No effect                                             |
+
 #### Book
 
 #### The Orb of Zot
