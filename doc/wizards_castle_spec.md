@@ -148,6 +148,7 @@ Potential algorithm:
    the X,Y coordinates on this level of the stairs down X,Y location on
    the previous level. (I.e. make sure the stairs up are directly below
    the stairs down.)
+10. Repeat from step 6 for each level.
 
 ## Room Contents
 
@@ -195,6 +196,8 @@ If you drink from a pool, one of 8 things happen with equal probability.
 
 If the player opens a chest, there are diffent chances of different effects.
 
+Once a chest is opened, it is replaced by an empty room.
+
 | Probability | Effect            |
 |:-----------:|-------------------|
 |    1/4      | Chest explodes    |
@@ -220,7 +223,20 @@ Collect 1d1000 gold pieces.
 
 #### Warp
 
+When entering a warp (which does not contain the Orb of Zot), the player is
+teleported to a random X, Y, Z location. The room effects at the new location
+take place as if the player had walked there.
+
+Note that one of the warps holds the Orb of Zot, and its behavior is different.
+See below.
+
 #### Sinkhole
+
+When entering a sinkhole, the player falls to the same X, Y on the level below.
+Room effects at the new location take place as if the player had walked there.
+
+Note: sinkholes do appear on the bottom level of the dungeon. If the player
+enters one, they "fall" to the topmost level.
 
 #### Crystal Orb
 
@@ -292,11 +308,11 @@ Normally you trade with vendors, unless you've attacked them before.
 Treasure value is a random number between `1` and `treasure_num * 1500`
 used when selling to the vendors.
 
-> In the original game, this was computed each time you traded with any
-> vendor. This allowed the player to just keep coming back until they
-> got a high number. An alternative implementation might set the value
-> one time at the beginning of the game in a range, and then have
-> vendors offer a fixed, per-vendor plus or minus on that value.
+> In the original game, the value was computed each time you traded with any
+> vendor. This allowed the player to just keep coming back until they got a high
+> number. An alternative implementation might set the value one time at the
+> beginning of the game in a range, and then have vendors offer a fixed,
+> per-vendor plus or minus on that value.
 
 ## Weapons
 
