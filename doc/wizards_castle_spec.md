@@ -255,6 +255,36 @@ Orb effects happen at an even 1/6 chance.
 
 #### Book
 
+Book effects happen at an even 1/6 chance.
+
+| Effect                  | Result/Notes                              |
+|-------------------------|-------------------------------------------|
+| Player goes blind       | See below                                 |
+| Book of Zot's Poetry    | No effect                                 |
+| Old copy of playmonster | Monster name chosen at random. No effect. |
+| Manual of Dexterity     | DX set to 18                              |
+| Manual of Strength      | ST set to 18                              |
+| Book sticks to hands    | See below                                 |
+
+##### Blindness
+
+Being blind has a number of mostly ill effects:
+
+* In the random messages, `YOU SEE A BAT` is replaced by `YOU STEPPED ON A FROG`.
+  > This could be simplified to merely not show any messages that had anything
+  > to do with seeing, and not by duplicating another message.
+* Monsters get the first attack.
+* Your to-hit worsens to `DX < 1d20 + 3`. See Combat.
+* Your to-dodge worsens to `DX < 3d7 + 3`. See Combat.
+
+If you have the Opal Eye at the beginning of a turn, your blindness is cured.
+
+##### Book stuck to hands
+
+You can't attack with hand weapons while you have a book stuck to your hands.
+
+If you have the Blue Flame at the beginning of a turn, the book is dissolved.
+
 #### The Orb of Zot
 
 One of the warps contains the Orb of Zot.
@@ -440,3 +470,7 @@ of the curse will start again.
 ## Combat
 
 ## Trading
+
+## Random Messages
+
+See note about blindness--can't see bats.
