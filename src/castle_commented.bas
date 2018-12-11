@@ -360,8 +360,6 @@ REM If player not blind, choose a random message between 1 - 7.
 REM If player is blind, choose a random message between 2 - 8.
 REM    If 8 chosen, show 4.
 
-REM I don't know the reasoning behind this logic.
-
 700 PRINT: PRINT "YOU ";: Q = FNA(7) + BL: IF Q > 7 then Q = 4
 
 REM Q
