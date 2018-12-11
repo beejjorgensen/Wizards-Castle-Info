@@ -482,3 +482,5 @@ of the curse will start again.
 ## Random Messages
 
 See note about blindness--can't see bats.
+
+## Turn Sequence
