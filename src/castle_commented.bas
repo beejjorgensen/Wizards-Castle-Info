@@ -434,7 +434,7 @@ REM MOVE: DOWN
 
 1000 PRINT: PRINT "** OH "; R$(RC); ", NO STAIRS GOING "; $Z; " IN HERE": GOTO 620
 
-REM Insult player for being blind, fall thru to print map
+REM Insult player for being blind, or continue to print map otherwise
 
 1010 IF BL = 1 THEN PRINT: PRINT "** YOU CAN'T SEE ANYTHING, DUMB "; R$(RC): GOTO 620
 
