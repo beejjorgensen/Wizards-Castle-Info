@@ -156,20 +156,20 @@ Potential algorithm:
 
 Historic graphic character corresponding to the item shown.
 
-| Room              | Character | Notes                                        |
-|-------------------|:---------:|----------------------------------------------|
-| Empty room        |    `.`    |                                              |
-| Entrance          |    `E`    | See below                                    |
-| Stairs going up   |    `U`    |                                              |
-| Stairs going down |    `D`    |                                              |
-| Pool              |    `P`    | See below                                    |
-| Chest             |    `C`    | See below                                    |
-| Gold pieces       |    `G`    | Pick up 1d10 gold pieces, mark room as empty |
-| Flares            |    `F`    | Pick up 1d5 flares, mark room as empty       |
-| Warp              |    `W`    | See below                                    |
-| Sinkhole          |    `S`    | See below                                    |
-| Crystal orb       |    `O`    | See below                                    |
-| Book              |    `B`    | See below                                    |
+| Room              | Character | Notes                                          |
+|-------------------|:---------:|------------------------------------------------|
+| Empty room        |    `.`    |                                                |
+| Entrance          |    `E`    | See below                                      |
+| Stairs going up   |    `U`    |                                                |
+| Stairs going down |    `D`    |                                                |
+| Pool              |    `P`    | See below                                      |
+| Chest             |    `C`    | See below                                      |
+| Gold pieces       |    `G`    | Pick up `1d10` gold pieces, mark room as empty |
+| Flares            |    `F`    | Pick up `1d5` flares, mark room as empty       |
+| Warp              |    `W`    | See below                                      |
+| Sinkhole          |    `S`    | See below                                      |
+| Crystal orb       |    `O`    | See below                                      |
+| Book              |    `B`    | See below                                      |
 
 #### Entrance
 
@@ -183,12 +183,12 @@ If you drink from a pool, one of 8 things happen with equal probability.
 
 | Pool Effect   | Description                                |
 |---------------|--------------------------------------------|
-| Feel Stronger | Add 1d3 to ST, capped at 18                |
-| Feel Weaker   | Subtract 1d3 from ST                       |
-| Feel Smarter  | Add 1d3 to IQ, capped at 18                |
-| Feel Dumber   | Subtract 1d3 from IQ                       |
-| Feel Nimbler  | Add 1d3 to DX, capped at 18                |
-| Feel Clumsier | Subtract 1d3 from DX                       |
+| Feel Stronger | Add `1d3` to ST, capped at 18              |
+| Feel Weaker   | Subtract `1d3` from ST                     |
+| Feel Smarter  | Add `1d3` to IQ, capped at 18              |
+| Feel Dumber   | Subtract `1d3` from IQ                     |
+| Feel Nimbler  | Add `1d3` to DX, capped at 18              |
+| Feel Clumsier | Subtract `1d3` from DX                     |
 | Change Race   | Change your race to something you're not   |
 | Change Gender | Change your gender to something you're not |
 
@@ -206,7 +206,7 @@ Once a chest is opened, it is replaced by an empty room.
 
 ##### Exploding chest
 
-1. Compute damage: 1d6 - Armor Value, clamped at 0.
+1. Compute damage: `1d6` - Armor Value, clamped at 0.
 2. Subtract damage from ST (might result in death).
 3. Subtract damage from Armor Durability (might result in armor being
    destroyed).
@@ -219,7 +219,7 @@ Once a chest is opened, it is replaced by an empty room.
 
 ##### Treasure chest
 
-Collect 1d1000 gold pieces.
+Collect `1d1000` gold pieces.
 
 #### Warp
 
@@ -246,7 +246,7 @@ Orb effects happen at an even 1/6 chance.
 
 | Effect                           | Result/Notes                                          |
 |----------------------------------|-------------------------------------------------------|
-| See yourself in a bloody heap    | Lose 1d2 ST, room is marked as empty (orb removed)    |
+| See yourself in a bloody heap    | Lose `1d2` ST, room is marked as empty (orb removed)  |
 | See yourself becoming a monster  | Type of monster chosen at random                      |
 | See a monster gazing back at you | Type of monster chosen at random                      |
 | An item at a location            | Location chosen randomly, marked as explored on map   |
@@ -343,16 +343,16 @@ Normally you trade with vendors, unless you've attacked them before.
 
 ### Treasures
 
-|  # | Treasure       | Character |  Value  | Effect                                      |
-|:--:|----------------|:---------:|:-------:|---------------------------------------------|
-|  1 | The Ruby Red   |    `T`    | 1d1500  | Protects against the curse of Lethargy      |
-|  2 | The Norn Stone |    `T`    | 1d3000  | No special power                            |
-|  3 | The Pale Pearl |    `T`    | 1d4500  | Protects against the curse of The Leech     |
-|  4 | The Opal Eye   |    `T`    | 1d6000  | Cures blindness                             |
-|  5 | The Green Gem  |    `T`    | 1d7500  | Protects against the curse of Forgetfulness |
-|  6 | The Blue Flame |    `T`    | 1d9000  | Dissolves books stuck to your hands         |
-|  7 | The Palintir   |    `T`    | 1d10500 | No special power                            |
-|  8 | The Silmaril   |    `T`    | 1d12000 | No special power                            |
+|  # | Treasure       | Character |   Value   | Effect                                      |
+|:--:|----------------|:---------:|:---------:|---------------------------------------------|
+|  1 | The Ruby Red   |    `T`    | `1d1500`  | Protects against the curse of Lethargy      |
+|  2 | The Norn Stone |    `T`    | `1d3000`  | No special power                            |
+|  3 | The Pale Pearl |    `T`    | `1d4500`  | Protects against the curse of The Leech     |
+|  4 | The Opal Eye   |    `T`    | `1d6000`  | Cures blindness                             |
+|  5 | The Green Gem  |    `T`    | `1d7500`  | Protects against the curse of Forgetfulness |
+|  6 | The Blue Flame |    `T`    | `1d9000`  | Dissolves books stuck to your hands         |
+|  7 | The Palintir   |    `T`    | `1d10500` | No special power                            |
+|  8 | The Silmaril   |    `T`    | `1d12000` | No special power                            |
 
 Treasure value is a random number between `1` and `treasure_num * 1500`
 used when selling to the vendors.
@@ -429,7 +429,7 @@ below. The suffix `WICH` was appended directly to the monster name (e.g.
 |:-:|--------|:--:|:--:|:--:|:--:|-------------------------------|
 | 1 | Hobbit | 10 | 12 |  8 | 60 | 4                             |
 | 2 | Elf    | 12 | 10 |  8 | 60 | 8                             |
-| 3 | Man    | 14 |  8 |  8 | 60 | 8                             |
+| 3 | Human  | 14 |  8 |  8 | 60 | 8                             |
 | 4 | Dwarf  | 16 |  6 |  8 | 60 | 8                             |
 
 ST is computed as `ST = 8 + race_num * 2`.
@@ -442,7 +442,7 @@ Characters can be either male or female.
 
 ### Outfitting
 
-You can buy armor and a weapon for their initial cost.
+You can buy armor and a weapon for their initial prices.
 
 (Only one weapon and armor may be possessed at a time.)
 
@@ -458,7 +458,7 @@ If you enter this room, you catch the curse.
 | Curse         | Warding Treasure | Effect                                                       |
 |---------------|------------------|--------------------------------------------------------------|
 | Lethargy      | The Ruby Red     | Monsters attack first, turn counter increases by 2 each turn |
-| The Leech     | The Pale Pearl   | Lose 1d5 gold pieces per turn                                |
+| The Leech     | The Pale Pearl   | Lose `1d5` gold pieces per turn                              |
 | Forgetfulness | The Green Gem    | Each turn, mark a random room as unexplored                  |
 
 With Forgetfulness, the random room is marked unexplored even if it was already
