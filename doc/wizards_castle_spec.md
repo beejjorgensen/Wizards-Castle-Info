@@ -473,9 +473,8 @@ Book effects happen at an even 1/6 chance.
 
 Being blind has a number of mostly ill effects:
 
-* In the random messages, `YOU SEE A BAT` is replaced by `YOU STEPPED ON A FROG`.
-  > This could be simplified to merely not show any messages that had anything
-  > to do with seeing, and not by duplicating another message.
+* In the [random messages](#random-messages), `YOU SEE A BAT` is replaced by
+  `YOU STEPPED ON A FROG`.
 * Monsters get the first attack.
 * Your to-hit worsens to `DX < 1d20 + 3`. See [Combat](#combat).
 * Your to-dodge worsens to `DX < 3d7 + 3`. See [Combat](#combat).
@@ -562,7 +561,25 @@ The game is over.
 
 ## Random Messages
 
-See note about blindness--can't see bats.
+Each turn there is a 1/5 chance that a random message will be shown.
+
+One of the following messages is shown with equal probability:
+
+| Message                            | Note                                                     |
+|------------------------------------|----------------------------------------------------------|
+| You see a bat fly by               |                                                          |
+| You hear {sound}                   | either "a scream", "footsteps", "a wumpus", or "thunder" |
+| You sneezed                        |                                                          |
+| You stepped on a frog              |                                                          |
+| You smell a {monster} frying       | chosen at random, not counting vendors                   |
+| You feel like you're being watched |                                                          |
+| You are playing Wizard's Castle    |                                                          |
+
+If the player is [blind](#blindness), then "you see a bat fly by" is replaced by
+"you stepped on a frog".
+
+> This could be simplified to merely not show any messages that had anything to
+> do with seeing, and not by duplicating another message.
 
 ## Turn Sequence
 
