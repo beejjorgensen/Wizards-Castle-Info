@@ -446,15 +446,21 @@ The room marked in brackets `<X>` is the room the player is currently in.
 
 Rooms marked with `?` are unexplored.
 
+You cannot view the map if you are [blind](#blindness).
+
 ### Light a flare
 
 A flare will "explore" the 8 surrounding squares of the level, wrapping around
 if necessary.
 
+You cannot light a flare if you are [blind](#blindness).
+
 ### Shine the lamp
 
 The player can shine the lamp, if possessed, N, S, W, or E to explore that
 single neighboring room without moving there.
+
+You cannot shine the lamp if you are [blind](#blindness).
 
 ### Open a book
 
@@ -469,22 +475,10 @@ Book effects happen at an even 1/6 chance.
 | Manual of Strength      | ST set to 18                                    |
 | Book sticks to hands    | See [Book stuck to hands](#book-stuck-to-hands) |
 
-#### Blindness
-
-Being blind has a number of mostly ill effects:
-
-* In the [random messages](#random-messages), `YOU SEE A BAT` is replaced by
-  `YOU STEPPED ON A FROG`.
-* Monsters get the first attack.
-* Your to-hit worsens to `DX < 1d20 + 3`. See [Combat](#combat).
-* Your to-dodge worsens to `DX < 3d7 + 3`. See [Combat](#combat).
-* TODO more
-
-If you have the Opal Eye at the beginning of a turn, your blindness is cured.
-
 #### Book stuck to hands
 
-You can't attack with hand weapons while you have a book stuck to your hands.
+You can't attack with hand [weapons](#weapons) while you have a book stuck to
+your hands. You may still attack with [spells](#spells).
 
 If you have the Blue Flame at the beginning of a turn, the book is dissolved.
 
@@ -532,6 +526,8 @@ Orb effects happen at an even 1/6 chance.
 | The Orb of Zot at a location     | 3/8 chance this is the real location, else it's a lie |
 | A soap opera rerun               | No effect                                             |
 
+You cannot gaze into an orb if you are [blind](#blindness).
+
 ### Drink from a pool
 
 If you drink from a pool, one of 8 things happen with equal probability.
@@ -555,6 +551,23 @@ Runestaff](#the-runestaff).
 ### Quit
 
 The game is over.
+
+## Blindness
+
+Being blind has a number of mostly ill effects:
+
+* In the [random messages](#random-messages), `YOU SEE A BAT` is replaced by
+  `YOU STEPPED ON A FROG`.
+* Monsters get the first attack.
+* Your to-hit worsens to `DX < 1d20 + 3`. See [Combat](#combat).
+* Your to-dodge worsens to `DX < 3d7 + 3`. See [Combat](#combat).
+* You cannot [gaze into an orb](#gaze-into-an-orb).
+* You cannot [light a flare](#light-a-flare).
+* You cannot [shine the lamp](#shine-the-lamp).
+* You can't see the [the map](#show-the-map).
+* You can't see your X, Y, Z location.
+
+If you have the Opal Eye at the beginning of a turn, your blindness is cured.
 
 ## Vendor Interactions
 
