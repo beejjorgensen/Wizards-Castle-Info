@@ -998,15 +998,14 @@ REM    Exploding chests
 REM    Monster damage
 
 REM Q is damage
-
-REM subtract the AV from Q
-REM subtract the AV from AH
-REM add any Q absorbed by AV back onto AH
-REM
-REM In other words:
 REM
 REM AH decreases by Q, clamped at or below AV
 REM ST decreases by Q - AV, clamped at or above 0
+REM
+REM In other words:
+REM
+REM AH decreases by MIN(Q, AV)
+REM ST decreases by MAX(Q - AV, 0)
 REM
 REM if AH < 0, armor is destroyed
 REM if ST < 0, player is killed
