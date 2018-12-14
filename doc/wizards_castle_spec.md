@@ -163,14 +163,14 @@ Historic graphic character corresponding to the item shown.
 | Entrance          |    `E`    | See [Entrance](#entrance)                      |
 | Stairs going up   |    `U`    |                                                |
 | Stairs going down |    `D`    |                                                |
-| Pool              |    `P`    | See [Regular Actions](#regular-actions)        |
-| Chest             |    `C`    | See [Regular Actions](#regular-actions)        |
+| Pool              |    `P`    | See [Drink from a pool](#drink-from-a-pool)    |
+| Chest             |    `C`    | See [Open a chest](#open-a-chest)              |
 | Gold pieces       |    `G`    | Pick up `1d10` gold pieces, mark room as empty |
 | Flares            |    `F`    | Pick up `1d5` flares, mark room as empty       |
 | Warp              |    `W`    | See [Warp](#warp)                              |
 | Sinkhole          |    `S`    | See [Sinkhole](#sinkhole)                      |
-| Crystal orb       |    `O`    | See [Regular Actions](#regular-actions)        |
-| Book              |    `B`    | See [Regular Actions](#regular-actions)        |
+| Crystal orb       |    `O`    | See [Gaze into an orb](#gaze-into-an-orb)      |
+| Book              |    `B`    | See [Open a book](#open-a-book)                |
 
 #### Entrance
 
@@ -453,8 +453,8 @@ if necessary.
 
 ### Shine the lamp
 
-The player can shine the lamp N, S, W, or E to explore that single neighboring
-room without moving there.
+The player can shine the lamp, if possessed, N, S, W, or E to explore that
+single neighboring room without moving there.
 
 ### Open a book
 
@@ -478,6 +478,7 @@ Being blind has a number of mostly ill effects:
 * Monsters get the first attack.
 * Your to-hit worsens to `DX < 1d20 + 3`. See [Combat](#combat).
 * Your to-dodge worsens to `DX < 3d7 + 3`. See [Combat](#combat).
+* TODO more
 
 If you have the Opal Eye at the beginning of a turn, your blindness is cured.
 
