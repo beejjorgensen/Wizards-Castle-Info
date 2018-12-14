@@ -40,7 +40,7 @@ the machine code call and `PEEK` are unknown. (`T` = time???)
 
 ### Curses bug?
 
-See the [Curses](#Curses) section, below.
+See the [Curses](#Curses) section.
 
 ## Gameplay
 
@@ -106,11 +106,11 @@ In the steps below, all rooms are undiscovered unless otherwise noted.
 11. Choose a random level. `RAND_PLACE` an additional warp and mark it
     as containing the Orb of Zot.
 
-#### New Generation
+#### Alternate Generation
 
-Historically, random rooms were selected by repeatedly searching at
-random until an empty room was found. This can be optimized by an number
-of means.
+Historically, random rooms were selected by repeatedly searching at random until
+an empty room was found. While this might produce fast results on a sparse
+dungeon, it might be irksome to those who want a more regular O(n) solution.
 
 Additionally, the Runestaff is hidden in an extra monster and the Orb of
 Zot is hidden as an extra warp. This leaks information to the player
@@ -140,10 +140,11 @@ Potential algorithm:
    7. Add all treasures for this level.
    8. Add all curses for this level as empty rooms.
 7. Shuffle the level.
+   * Note the entrance location.
    * Note the stairs down locations (levels 0-6 only!)
    * Note the stairs up locations (levels 1-7 only!)
-8. Swap the item at (3,0,0) with the entrance. (I.e. move the entrance
-   into place.)
+8. For level 0, swap the item at (3,0,0) with the entrance. (I.e. move the
+   entrance into place.)
 9. Swap both stairs up locations (levels 1-7 only!) with whatever is at
    the X,Y coordinates on this level of the stairs down X,Y location on
    the previous level. (I.e. make sure the stairs up are directly below
@@ -159,67 +160,21 @@ Historic graphic character corresponding to the item shown.
 | Room              | Character | Notes                                          |
 |-------------------|:---------:|------------------------------------------------|
 | Empty room        |    `.`    |                                                |
-| Entrance          |    `E`    | See below                                      |
+| Entrance          |    `E`    | See [Entrance](#entrance)                      |
 | Stairs going up   |    `U`    |                                                |
 | Stairs going down |    `D`    |                                                |
-| Pool              |    `P`    | See below                                      |
-| Chest             |    `C`    | See below                                      |
+| Pool              |    `P`    | See [Regular Actions](#regular-actions)        |
+| Chest             |    `C`    | See [Regular Actions](#regular-actions)        |
 | Gold pieces       |    `G`    | Pick up `1d10` gold pieces, mark room as empty |
 | Flares            |    `F`    | Pick up `1d5` flares, mark room as empty       |
-| Warp              |    `W`    | See below                                      |
-| Sinkhole          |    `S`    | See below                                      |
-| Crystal orb       |    `O`    | See below                                      |
-| Book              |    `B`    | See below                                      |
+| Warp              |    `W`    | See [Warp](#warp)                              |
+| Sinkhole          |    `S`    | See [Sinkhole](#sinkhole)                      |
+| Crystal orb       |    `O`    | See [Regular Actions](#regular-actions)        |
+| Book              |    `B`    | See [Regular Actions](#regular-actions)        |
 
 #### Entrance
 
 If you go north from this room, you exit the dungeon and the game is over.
-
-If you possess The Orb of Zot when you exit, you win. If you do not, you lose.
-
-#### Pool
-
-If you drink from a pool, one of 8 things happen with equal probability.
-
-| Pool Effect   | Description                                |
-|---------------|--------------------------------------------|
-| Feel Stronger | Add `1d3` to ST, capped at 18              |
-| Feel Weaker   | Subtract `1d3` from ST                     |
-| Feel Smarter  | Add `1d3` to IQ, capped at 18              |
-| Feel Dumber   | Subtract `1d3` from IQ                     |
-| Feel Nimbler  | Add `1d3` to DX, capped at 18              |
-| Feel Clumsier | Subtract `1d3` from DX                     |
-| Change Race   | Change your race to something you're not   |
-| Change Gender | Change your gender to something you're not |
-
-#### Chest
-
-If the player opens a chest, there are diffent chances of different effects.
-
-Once a chest is opened, it is replaced by an empty room.
-
-| Probability | Effect            |
-|:-----------:|-------------------|
-|    1/4      | Chest explodes    |
-|    1/4      | Poison gas        |
-|    1/2      | Contains treasure |
-
-##### Exploding chest
-
-1. Compute damage: `1d6` - Armor Value, clamped at 0.
-2. Subtract damage from ST (might result in death).
-3. Subtract damage from Armor Durability (might result in armor being
-   destroyed).
-
-##### Poison gas chest
-
-1. Add 20 to turn counter.
-2. Move the player a random direction (N, S, W, E) as if the player had walked
-   that way.
-
-##### Treasure chest
-
-Collect `1d1000` gold pieces.
 
 #### Warp
 
@@ -228,7 +183,7 @@ teleported to a random X, Y, Z location. The room effects at the new location
 take place as if the player had walked there.
 
 Note that one of the warps holds the Orb of Zot, and its behavior is different.
-See below.
+See [The Orb of Zot](#the-orb-of-zot).
 
 #### Sinkhole
 
@@ -237,53 +192,6 @@ Room effects at the new location take place as if the player had walked there.
 
 Note: sinkholes do appear on the bottom level of the dungeon. If the player
 enters one, they "fall" to the topmost level.
-
-#### Crystal Orb
-
-These orbs are _not_ The Orb of Zot.
-
-Orb effects happen at an even 1/6 chance.
-
-| Effect                           | Result/Notes                                          |
-|----------------------------------|-------------------------------------------------------|
-| See yourself in a bloody heap    | Lose `1d2` ST, room is marked as empty (orb removed)  |
-| See yourself becoming a monster  | Type of monster chosen at random                      |
-| See a monster gazing back at you | Type of monster chosen at random                      |
-| An item at a location            | Location chosen randomly, marked as explored on map   |
-| The Orb of Zot at a location     | 3/8 chance this is the real location, else it's a lie |
-| A soap opera rerun               | No effect                                             |
-
-#### Book
-
-Book effects happen at an even 1/6 chance.
-
-| Effect                  | Result/Notes                              |
-|-------------------------|-------------------------------------------|
-| Player goes blind       | See below                                 |
-| Book of Zot's Poetry    | No effect                                 |
-| Old copy of playmonster | Monster name chosen at random. No effect. |
-| Manual of Dexterity     | DX set to 18                              |
-| Manual of Strength      | ST set to 18                              |
-| Book sticks to hands    | See below                                 |
-
-##### Blindness
-
-Being blind has a number of mostly ill effects:
-
-* In the random messages, `YOU SEE A BAT` is replaced by `YOU STEPPED ON A FROG`.
-  > This could be simplified to merely not show any messages that had anything
-  > to do with seeing, and not by duplicating another message.
-* Monsters get the first attack.
-* Your to-hit worsens to `DX < 1d20 + 3`. See Combat.
-* Your to-dodge worsens to `DX < 3d7 + 3`. See Combat.
-
-If you have the Opal Eye at the beginning of a turn, your blindness is cured.
-
-##### Book stuck to hands
-
-You can't attack with hand weapons while you have a book stuck to your hands.
-
-If you have the Blue Flame at the beginning of a turn, the book is dissolved.
 
 #### The Orb of Zot
 
@@ -314,7 +222,7 @@ HP is Hit Points.
 | 10 | Chimera  |    `M`    | 12 |    6   |                                        |
 | 11 | Balrog   |    `M`    | 13 |    6   |                                        |
 | 12 | Dragon   |    `M`    | 14 |    7   | 1/8 chance of weapon breaking on a hit |
-| 13 | Vendor   |    `V`    | 15 |    7   | See below                              |
+| 13 | Vendor   |    `V`    | 15 |    7   | See [Vendors](#vendors)                |
 
 HP is computed as `monster_num + 2`.
 
@@ -339,7 +247,8 @@ is transferred to the player.
 |----------|:---------:|:--:|
 | Vendor   |    `V`    | 15 |
 
-Normally you trade with vendors, unless you've attacked them before.
+Normally you trade with vendors, unless you've attacked them before. See
+[Vendor Interactions](#vendor-interactions).
 
 ### Treasures
 
@@ -493,14 +402,175 @@ of the curse will start again.
 > The rest of the code seems to assume that the curse is never cured and that the
 > treasures simply cause the effects to be ignored. 
 
-## Actions
+## Regular Actions
+
+### Move N, S, W, or E
+
+This moves you a cardinal direction in the dungeon.
+
+The dungeon wraps around at each edge.
+
+Moving North from the Entrance is a special case that exits the dungeon and ends
+the game.
+
+### Move Up or Down
+
+If you are on stairs up or down, you may move up to the previous level or down
+to the next level.
+
+There are no stairs up at the top level.
+
+There are no stairs down at the bottom level.
+
+### Show the map
+
+Historically, the map has been shown in text form as follows:
+
+     ?    ?    P    E    .    ?    ?    ?
+
+     ?    ?    .    .    .    ?    ?    ?
+
+     ?    ?    S    V    .    F    ?    ?
+
+     ?    ?    .    B    .   <.>   P    ?
+
+     ?    ?    ?    .    C    .    ?    ?
+
+     ?    ?    ?    ?    ?    ?    ?    ?
+
+     ?    ?    ?    ?    ?    ?    ?    ?
+
+     ?    ?    ?    ?    ?    ?    ?    ?
+
+The room marked in brackets `<X>` is the room the player is currently in.
+
+Rooms marked with `?` are unexplored.
+
+### Light a flare
+
+A flare will "explore" the 8 surrounding squares of the level, wrapping around
+if necessary.
+
+### Shine the lamp
+
+The player can shine the lamp N, S, W, or E to explore that single neighboring
+room without moving there.
+
+### Open a book
+
+Book effects happen at an even 1/6 chance.
+
+| Effect                  | Result/Notes                                    |
+|-------------------------|-------------------------------------------------|
+| Player goes blind       | See [Blindness](#blindness)                     |
+| Book of Zot's Poetry    | No effect                                       |
+| Old copy of playmonster | Monster name chosen at random. No effect.       |
+| Manual of Dexterity     | DX set to 18                                    |
+| Manual of Strength      | ST set to 18                                    |
+| Book sticks to hands    | See [Book stuck to hands](#book-stuck-to-hands) |
+
+#### Blindness
+
+Being blind has a number of mostly ill effects:
+
+* In the random messages, `YOU SEE A BAT` is replaced by `YOU STEPPED ON A FROG`.
+  > This could be simplified to merely not show any messages that had anything
+  > to do with seeing, and not by duplicating another message.
+* Monsters get the first attack.
+* Your to-hit worsens to `DX < 1d20 + 3`. See [Combat](#combat).
+* Your to-dodge worsens to `DX < 3d7 + 3`. See [Combat](#combat).
+
+If you have the Opal Eye at the beginning of a turn, your blindness is cured.
+
+#### Book stuck to hands
+
+You can't attack with hand weapons while you have a book stuck to your hands.
+
+If you have the Blue Flame at the beginning of a turn, the book is dissolved.
+
+### Open a chest
+
+If the player opens a chest, there are different chances of different effects.
+
+Once a chest is opened, it is replaced by an empty room.
+
+| Probability | Effect            |
+|:-----------:|-------------------|
+|    1/4      | Chest explodes    |
+|    1/4      | Poison gas        |
+|    1/2      | Contains treasure |
+
+#### Exploding chest
+
+1. Compute damage: `1d6` - Armor Value, clamped at 0.
+2. Subtract damage from ST (might result in death).
+3. Subtract damage from Armor Durability (might result in armor being
+   destroyed).
+
+#### Poison gas chest
+
+1. Add 20 to turn counter.
+2. Move the player a random direction (N, S, W, E) as if the player had walked
+   that way.
+
+#### Treasure chest
+
+Collect `1d1000` gold pieces.
+
+### Gaze into an orb
+
+These orbs found in rooms are _not_ The Orb of Zot.
+
+Orb effects happen at an even 1/6 chance.
+
+| Effect                           | Result/Notes                                          |
+|----------------------------------|-------------------------------------------------------|
+| See yourself in a bloody heap    | Lose `1d2` ST, room is marked as empty (orb removed)  |
+| See yourself becoming a monster  | Type of monster chosen at random                      |
+| See a monster gazing back at you | Type of monster chosen at random                      |
+| An item at a location            | Location chosen randomly, marked as explored on map   |
+| The Orb of Zot at a location     | 3/8 chance this is the real location, else it's a lie |
+| A soap opera rerun               | No effect                                             |
+
+### Drink from a pool
+
+If you drink from a pool, one of 8 things happen with equal probability.
+
+| Pool Effect   | Description                                |
+|---------------|--------------------------------------------|
+| Feel Stronger | Add `1d3` to ST, capped at 18              |
+| Feel Weaker   | Subtract `1d3` from ST                     |
+| Feel Smarter  | Add `1d3` to IQ, capped at 18              |
+| Feel Dumber   | Subtract `1d3` from IQ                     |
+| Feel Nimbler  | Add `1d3` to DX, capped at 18              |
+| Feel Clumsier | Subtract `1d3` from DX                     |
+| Change Race   | Change your race to something you're not   |
+| Change Gender | Change your gender to something you're not |
+
+### Teleport
+
+If you have the Runestaff, you can teleport to any X, Y, Z location. See [The
+Runestaff](#the-runestaff).
+
+### Quit
+
+The game is over.
+
+## Vendor Interactions
 
 ## Combat
-
-## Trading
 
 ## Random Messages
 
 See note about blindness--can't see bats.
 
 ## Turn Sequence
+
+## Game Over, Man
+
+If you exit the dungeon:
+
+* If you have the Orb of Zot, you win.
+* If you do not have the Orb of Zot, you lose.
+
+If any of your stats fall to 0 or below, you die and lose.
