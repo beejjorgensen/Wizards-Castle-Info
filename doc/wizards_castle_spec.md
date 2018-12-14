@@ -475,6 +475,10 @@ Book effects happen at an even 1/6 chance.
 | Manual of Strength      | ST set to 18                                    |
 | Book sticks to hands    | See [Book stuck to hands](#book-stuck-to-hands) |
 
+You can still open a book even if you're blind.
+
+> While this doesn't entirely make sense, it's the way it was coded.
+
 #### Book stuck to hands
 
 You can't attack with hand [weapons](#weapons) while you have a book stuck to
