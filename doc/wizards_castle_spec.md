@@ -423,12 +423,32 @@ below. The suffix `WICH` was appended directly to the monster name (e.g.
 
 ## Character Generation
 
-REM RACES
-REM
-REM 1 - HOBBIT
-REM 2 - ELF
-REM 3 - MAN
-REM 4 - DWARF
+### Starting Stat Values
+
+| # | Race   | ST | DX | IQ | GP | Additional points to allocate |
+|:-:|--------|:--:|:--:|:--:|:--:|-------------------------------|
+| 1 | Hobbit | 10 | 12 |  8 | 60 | 4                             |
+| 2 | Elf    | 12 | 10 |  8 | 60 | 8                             |
+| 3 | Man    | 14 |  8 |  8 | 60 | 8                             |
+| 4 | Dwarf  | 16 |  6 |  8 | 60 | 8                             |
+
+ST is computed as `ST = 8 + race_num * 2`.
+
+DX is computed as `ST = 14 - race_num * 2`.
+
+Additional points may be allocated at will between ST, DX, and IQ.
+
+Characters can be either male or female.
+
+### Outfitting
+
+You can buy armor and a weapon for their initial cost.
+
+(Only one weapon and armor may be possessed at a time.)
+
+You can buy a lamp for 20 GPs.
+
+You can buy single flares for 1 GP each.
 
 ## Curses
 
