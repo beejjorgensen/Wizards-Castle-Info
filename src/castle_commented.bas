@@ -1005,10 +1005,8 @@ REM add any Q absorbed by AV back onto AH
 REM
 REM In other words:
 REM
-REM remaining_damage = Q - AV
-REM if remaining_damage < 0 remaining_damage = 0
-REM AH = AH - remaining_damage
-REM ST = ST - remaining_damage
+REM AH decreases by Q, clamped at or below AV
+REM ST decreases by Q - AV, clamped at or above 0
 REM
 REM if AH < 0, armor is destroyed
 REM if ST < 0, player is killed
