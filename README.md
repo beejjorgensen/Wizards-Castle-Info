@@ -1,5 +1,13 @@
 # Wizard's Castle Information
 
+    MANY CYCLES AGO, IN THE KINGDOM OF N'DIC, THE GNOMIC
+    WIZARD ZOT FORGED HIS GREAT *ORB OF POWER*. HE SOON
+    VANISHED, LEAVING BEHIND HIS VAST SUBTERRANEAN CASTLE
+    FILLED WITH ESURIENT MONSTERS, FABULOUS TREASURES, AND
+    THE INCREDIBLE *ORB OF ZOT*. FROM THAT TIME HENCE, MANY
+    A BOLD YOUTH HAS VENTURED INTO THE WIZARD'S CASTLE. AS
+    OF NOW, *NONE* HAS EVER EMERGED VICTORIOUSLY! BEWARE!!
+
 ## Disclaimer
 
 I did not write this game. But I've probably played it more times than
@@ -25,6 +33,7 @@ detail the rules for the game.
 
 * [Source](src/castle.bas)
 * [Source, liberally commented](src/castle_commented.bas)
+* [Source, MBASIC port](src/castle_mbasic.bas)
 
 ## Elsewhere
 
