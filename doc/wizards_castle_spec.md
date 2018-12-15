@@ -95,7 +95,8 @@ In the steps below, all rooms are undiscovered unless otherwise noted.
 3. For each level 0-6 `RAND_PLACE` 2 stairs down.
 4. For each of the stairs down, place a stairs up on the level below at
    the same X,Y.
-5. For each level 0-7 `RAND_PLACE` 1 of each type of monster.
+5. For each level 0-7 `RAND_PLACE` 1 of each type of monster (not including
+   vendors).
 6. For each level 0-8 `RAND_PLACE` 3 of each type of item.
 7. For each level 0-8 `RAND_PLACE` 3 vendors.
 8. For each treasure, choose a random level and `RAND_PLACE` the
@@ -130,7 +131,7 @@ Potential algorithm:
    1. Entrance.
    2. 2 stairs down (levels 0-6 only!)
    3. 2 stairs up (levels 1-7 only!)
-   4. 1 of each type of monster.
+   4. 1 of each type of monster (not including vendors).
       * If this is the Runestaff level, choose one of the monsters at
         random to possess it.
    5. 3 of each type of item.
@@ -222,11 +223,18 @@ HP is Hit Points.
 | 10 | Chimera  |    `M`    | 12 |    6   |                                        |
 | 11 | Balrog   |    `M`    | 13 |    6   |                                        |
 | 12 | Dragon   |    `M`    | 14 |    7   | 1/8 chance of weapon breaking on a hit |
-| 13 | Vendor   |    `V`    | 15 |    7   | See [Vendors](#vendors)                |
+
+|  # | Combatant | Character | HP | Damage | Notes                                             |
+|:--:|-----------|:---------:|:--:|:------:|---------------------------------------------------|
+| 13 | Vendor    |    `V`    | 15 |    7   | See [Vendors Interactions](#vendor-interactions). |
 
 HP is computed as `monster_num + 2`.
 
 Damage is computed as `1 + INT(monster_num / 2)`.
+
+For the purposes of this spec, Vendors are _not_ typically counted as a
+"monster". They are listed in this table since the player may choose to do
+combat with them.
 
 ### The Runestaff
 
@@ -240,15 +248,6 @@ place as if the player had walked into that room.
 
 If the destination is The Orb of Zot, the Runestaff vanishes, and the Orb of Zot
 is transferred to the player.
-
-### Vendors
-
-| Monster  | Character | HP |
-|----------|:---------:|:--:|
-| Vendor   |    `V`    | 15 |
-
-Normally you trade with vendors, unless you've attacked them before. See
-[Vendor Interactions](#vendor-interactions).
 
 ### Treasures
 
@@ -572,7 +571,55 @@ If you have the Opal Eye at the beginning of a turn, your blindness is cured.
 
 ## Vendor Interactions
 
-TODO
+If the vendors are angry at the player, [combat](#combat) begins as normal.
+
+Otherwise, the player can:
+
+* Trade
+* Attack
+* Ignore
+
+Either zero vendors are angry or all vendors are angry. Anger is not tracked
+per-vendor.
+
+### Trade
+
+#### Sell Treasures
+
+Vendors will offer to buy any treasures you carry for their [value](#treasures).
+
+#### Buy Armor
+
+The player can buy any type of armor, even if is a downgrade, for the [vendor
+price](#armor). Only one armor may be possessed at a time.
+
+The armor is brand new at full durability.
+
+#### Buy Weapons
+
+The player can buy any type of weapon, even if is a downgrade, for the [vendor
+price](#weapons). Only one weapon may be possessed at a time.
+
+#### Buy Potions
+
+The player can purchase any number of potions of DX, IQ, or ST for 1000 GP each.
+
+Each potion adds `1d6` to the given stat up to a max of 18.
+
+#### Buy Lamp
+
+The player can purchase a lamp for 1000 GP.
+
+### Attack
+
+If you choose to attack, all vendors become angry, and [combat](#combat) begins
+as normal.
+
+All vendors remain angry until one is successfully [bribed](#bribe).
+
+### Ignore
+
+The turn is over with no effect.
 
 ## Combat
 
