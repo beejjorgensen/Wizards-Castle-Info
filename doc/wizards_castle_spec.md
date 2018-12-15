@@ -294,14 +294,12 @@ Initial Cost is computed as `weapon_num * 10`.
 
 Protection is computed as `armor_num`.
 
-Durability is computed as `armor_num * 7`.
+Initial durability is computed as `armor_num * 7`.
 
 Initial Price is computed as `armor_num * 10`.
 
-Armor will deflect its Protection rating in points of damage when hit.
-
-Points of damage absorbed are subtracted from the Durability value. When
-Durability falls to 0, the armor is destroyed.
+Points of [damage](#taking-damage) absorbed are subtracted from the Durability
+value. When Durability falls to 0, the armor is destroyed.
 
 ## Recipes
 
