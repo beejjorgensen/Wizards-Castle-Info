@@ -500,10 +500,7 @@ Once a chest is opened, it is replaced by an empty room.
 
 #### Exploding chest
 
-1. Compute damage: `1d6` - Armor Value, clamped at 0.
-2. Subtract damage from ST (might result in death).
-3. Subtract damage from Armor Durability (might result in armor being
-   destroyed).
+Player [takes `1d6` damage](#taking-damage).
 
 #### Poison gas chest
 
@@ -575,7 +572,109 @@ If you have the Opal Eye at the beginning of a turn, your blindness is cured.
 
 ## Vendor Interactions
 
+TODO
+
 ## Combat
+
+Player gets the first attack unless one or more of the following is true:
+
+* You are afflicted by the curse of [Lethargy](#curses)
+* You're [blind](#blindness)
+* DX < `2d9`
+
+### Player attacks
+
+The player gets one action during their attack:
+
+* Attack
+* Retreat
+* Bribe
+* Cast a Spell
+
+#### Attack
+
+This is a melee attack.
+
+If you attack without a weapon, your turn is forfeit and the monster plays.
+
+> A variant might prevent attacks if the player has no weapon, and allow them to
+> choose another action.
+
+If you attack with a book stuck to your hands, your turn if forfeit and the
+monster plays.
+
+Otherwise, player rolls to-hit.
+
+If not blind:
+
+* Player hits if DX >= `1d20`
+
+If blind:
+
+* Player hits if DX >= `1d20` + 3
+
+If the player hits, the monster loses the damage value of the weapon from its
+HP.
+
+#### Retreat
+
+If the player chooses to retreat, the monster [gets one last
+attack](#monster-attacks), and then the player escapes. (Assuming they survive.)
+
+The player chooses to retreat N, S, W, or E and walks to that room.
+
+#### Bribe
+
+If this is the first iteration of combat and the player moved first, the player
+may also attempt to bribe.
+
+If the player tries to bribe with no treasures, their turn is forfeit and the
+monster plays.
+
+If the player has treasures, the monster will select one at random that it
+wants.
+
+* If the player agrees, combat ceases and the player is prompted for their next
+  move.
+
+* If the player disagrees, combat continues with the monster's attack.
+
+If the player successfully bribes a vendor, all vendors become friendly again.
+
+#### Cast a Spell
+
+If this is the first iteration of combat and the player moved first, and the
+player has IQ > 14, the player may also cast a spell.
+
+| Spell      |          Cost          |    Duration   | Effect
+|------------|:----------------------:|:-------------:|--------------------------------------------------------|
+| Web        |       1 point ST       | `1d6`+1 turns | Monster cannot attack until the web breaks             |
+| Fireball   | 1 point ST, 1 point IQ |      ---      | Monster loses `2d7` HP                                 |
+| Deathspell |           ---          |      ---      | If IQ < 15 + `1d4` then player dies, else monster dies |
+
+If ST or IQ fall below 1, the player dies immediately and before the spell's
+effects resolve.
+
+Web breakage occurs just before the start of the monster attack.
+
+Fireball and Deathspell resolve on the spot. If the monster is still alive, the
+monster continues with its attack.
+
+### Monster attacks
+
+Just before the monster attacks, the web counter, if any, decrements and the web
+breaks if necessary.
+
+If the web is unbroken, the monster cannot attack, and the turn passes back to
+the player.
+
+Otherwise the monster rolls to-hit.
+
+* If the player is not [blind](#blindness), monster hits on DX < `3d7`.
+* If the player is [blind](#blindness), monster hits on DX < `3d7` + 3.
+
+If a hit, the monster causes [damage](#taking-damage) based on [monster
+race](#monsters).
 
 ## Random Messages
 
@@ -599,7 +698,24 @@ If the player is [blind](#blindness), then "you see a bat fly by" is replaced by
 > This could be simplified to merely not show any messages that had anything to
 > do with seeing, and not by duplicating another message.
 
+## Taking Damage
+
+Taking damage reduces your ST and damages your armor.
+
+Values:
+
+* `X`: damage amount
+* `P`: armor [protection value](#armor)
+* `D`: remaining armor [durability value](#armor)
+
+Damage resolution:
+
+* ST decreases by `X`-`P` or 0, whichever is more.
+* `D` decreases by `X` or `P`, whichever is less.
+
 ## Turn Sequence
+
+TODO
 
 ## Game Over, Man
 
