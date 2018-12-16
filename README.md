@@ -25,7 +25,7 @@ detail the rules for the game.
 
 ### Docs
 
-* [The Spec (WIP)](doc/wizards_castle_spec.md)
+* [The Spec](doc/wizards_castle_spec.md)
 * [Wizard's Castle backstory (local mirror)](doc/backstory.md)
 * [Recreational Computing, July 1980 issue (local mirror)](doc/1980-07-recreational-computing.pdf)
 
