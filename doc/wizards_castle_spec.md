@@ -211,6 +211,7 @@ Historic graphic character corresponding to the item shown.
 | Sinkhole          |    `S`    | See [Sinkhole](#sinkhole)                      |
 | Crystal orb       |    `O`    | See [Gaze into an orb](#gaze-into-an-orb)      |
 | Book              |    `B`    | See [Open a book](#open-a-book)                |
+| Treasure          |    `T`    | See [Treasures](#treasures)                    |
 
 #### Entrance
 
@@ -238,7 +239,9 @@ enters one, they "fall" to the topmost level.
 One of the warps contains the Orb of Zot.
 
 If you teleport into this warp, you obtain the Orb of Zot and the Runestaff
-vanishes. In addition, the warp turns into an empty room.
+vanishes.
+
+In addition, the warp turns into an empty room.
 
 If you enter the warp by any other means, you pass out the other side in
 the direction last walked (N, S, W, or E), remaining in all cases on the
@@ -300,6 +303,14 @@ is transferred to the player.
 |  6 | The Blue Flame |    `T`    | `1d9000`  | Dissolves books stuck to your hands         |
 |  7 | The Palintir   |    `T`    | `1d10500` | No special power                            |
 |  8 | The Silmaril   |    `T`    | `1d12000` | No special power                            |
+
+Treasures are found randomly thoughout the dungeon.
+
+If the player picks up a treasure, it is transferred to their inventory and the
+room is marked as empty.
+
+Treasures sold or used for bribes are inaccessible for the remainder of the
+game.
 
 Treasure value is a random number between `1` and `treasure_num * 1500`
 used when selling to the vendors.
@@ -538,15 +549,23 @@ Once a chest is opened, it is replaced by an empty room.
 
 Player [takes `1d6` damage](#taking-damage).
 
+The chest is removed from the map.
+
 #### Poison gas chest
 
 1. Add 20 to turn counter.
 2. Move the player a random direction (N, S, W, E) as if the player had walked
    that way.
 
+The chest remains on the map.
+
+> Is this an oversight in the original code? Was it meant to be removed?
+
 #### Treasure chest
 
 Collect `1d1000` gold pieces.
+
+The chest is removed from the map.
 
 ### Gaze into an orb
 
@@ -666,6 +685,8 @@ unless one or more of the following is true:
 * You are afflicted by the curse of [Lethargy](#curses)
 * You're [blind](#blindness)
 * DX < `2d9`
+
+When a monster (or vendor) is defeated, it is removed from the map.
 
 ### Player attacks
 
