@@ -53,6 +53,45 @@ warp that's actually The Orb of Zot in disguse.
 Once the Orb of Zot is obtained, the player makes their way back to the
 entrance and exits the dungeon to win.
 
+### Turn Sequence
+
+After the [dungeon](#dungeon) is created, [player](#character-generation) is
+generated, outfitted, and placed at the entrance to the dungeon, this sequence
+of steps repeats until the game is over.
+
+The turn counter is initialized to 0.
+
+* Increment turn counter.
+
+* Initial [curse](#curses) effect resolution.
+  * If the player has the Orb of Zot or the Runestaff, curse effects do not take
+    place.
+  * If the player has Lethargy (and no Ruby Red), increment the turn counter.
+  * If the player has The Leech (and no Pale Pearl), subtract `1d5` from GP.
+  * If the player has Forgetfulness (and no Green Gem), unexplore a random room.
+
+* Test to see if the player is in a [cursed room](#curses), and enable that
+  curse if so.
+
+* Print a [random message](#random-messages).
+
+* If the player is [blind](#blindness) and has the Opal Eye, cure blindness.
+
+* If the player has a [book stuck to their hands](#book-stuck-to-hands) and has
+  The Blue Flame, dissolve the book.
+
+* Input a move and perform that [action](#regular-actions).
+
+* Print location (if not [blind](#blind)) and stats.
+
+* Print out room description.
+
+* Resolve that [room's effects](#room-contents).
+
+Certain things like sinkholes, gas chests, and warps (and similarly,
+teleporting) cause the player to move uncommanded. In those cases, roomt effect
+resolution occurs exactly as if the play had walked to that location.
+
 ## Dungeon
 
 The dungeon is an 8x8x8 grid.
@@ -621,7 +660,8 @@ The turn is over with no effect.
 
 ## Combat
 
-Player gets the first attack unless one or more of the following is true:
+Upon encountering a monster or angry vendor, the player gets the first attack
+unless one or more of the following is true:
 
 * You are afflicted by the curse of [Lethargy](#curses)
 * You're [blind](#blindness)
@@ -757,10 +797,6 @@ Damage resolution:
 
 * ST decreases by `X`-`P` or 0, whichever is more.
 * `D` decreases by `X` or `P`, whichever is less.
-
-## Turn Sequence
-
-TODO
 
 ## Game Over, Man
 
