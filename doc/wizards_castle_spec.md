@@ -537,7 +537,8 @@ If you have the Blue Flame at the beginning of a turn, the book is dissolved.
 
 If the player opens a chest, there are different chances of different effects.
 
-Once a chest is opened, it is replaced by an empty room.
+Once a chest is opened, it is replaced by an empty room, except in the case of a
+gas chest.
 
 | Probability | Effect            |
 |:-----------:|-------------------|
