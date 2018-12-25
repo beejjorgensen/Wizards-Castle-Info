@@ -390,7 +390,7 @@ below. The suffix `WICH` was appended directly to the monster name (e.g.
 
 ST is computed as `ST = 8 + race_num * 2`.
 
-DX is computed as `ST = 14 - race_num * 2`.
+DX is computed as `DX = 14 - race_num * 2`.
 
 Additional points may be allocated at will between ST, DX, and IQ.
 
