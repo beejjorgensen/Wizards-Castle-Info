@@ -383,14 +383,14 @@ below. The suffix `WICH` was appended directly to the monster name (e.g.
 
 | # | Race   | ST | DX | IQ | GP | Additional points to allocate |
 |:-:|--------|:--:|:--:|:--:|:--:|-------------------------------|
-| 1 | Hobbit | 10 | 12 |  8 | 60 | 4                             |
-| 2 | Elf    | 12 | 10 |  8 | 60 | 8                             |
-| 3 | Human  | 14 |  8 |  8 | 60 | 8                             |
-| 4 | Dwarf  | 16 |  6 |  8 | 60 | 8                             |
+| 1 | Hobbit |  4 | 12 |  8 | 60 | 4                             |
+| 2 | Elf    |  6 | 10 |  8 | 60 | 8                             |
+| 3 | Human  |  8 |  8 |  8 | 60 | 8                             |
+| 4 | Dwarf  | 10 |  6 |  8 | 60 | 8                             |
 
-ST is computed as `ST = 8 + race_num * 2`.
+ST is computed as `ST = 2 + race_num * 2`.
 
-DX is computed as `ST = 14 - race_num * 2`.
+DX is computed as `DX = 14 - race_num * 2`.
 
 Additional points may be allocated at will between ST, DX, and IQ.
 
