@@ -43,7 +43,7 @@ REM T status flags of the treasures (1 = player owns)
 REM O location of the Orb of Zot
 REM R location of the Runestaff
 
-30 DIM C(3,4), T(8), O(3), R(3): PRINT CHAR$(12); "Creating Arrays"
+30 DIM C(3,4), T(8), O(3), R(3): PRINT CHR$(12); "Creating Arrays"
 
 REM Call machine code to get something for random seed??
 
@@ -56,7 +56,7 @@ REM FNE tags a room as explored
 
 REM CHR$(13) is newline
 
-60 Y$ = CHR$(13) + "** ANSWER YES OR NO " + CHR(13)
+60 Y$ = CHR$(13) + "** ANSWER YES OR NO " + CHR$(13)
 
 REM FNA produces a random number from 1 to Q
 REM FNB causes wraparound at borders
@@ -98,7 +98,7 @@ REM 3200 Choose a random X,Y for a given Z until you find an empty room. Set tha
 
 REM For each level 1-7, place 2 random stairs down. Place stairs up on the next level below.
 
-150 POKE FND(1), 2: PRINT "IN"; FOR Z = 1 TO 7: FOR Q1 = 1 TO 2: Q = 104: GOSUB 3200
+150 POKE FND(1), 2: PRINT "IN";: FOR Z = 1 TO 7: FOR Q1 = 1 TO 2: Q = 104: GOSUB 3200
 160 POKE FND(Z+1), 103: NEXT Q1: NEXT Z: PRINT "I";
 
 REM For each level:
@@ -107,8 +107,8 @@ REM    Place 3 of each item
 REM    Place 3 vendors
 REM    Print out the next letter of "TIALIZIN"
 
-170 FOR Z = 1 TO 8: FOR Q = 113 to 124: GOSUB 3200: NEXT Q: FOR Q1 = 1 TO 3
-180 FOR Q = 105 to 112: GOSUB 3200: NEXT Q: Q = 125: GOSUB 3200: NEXT Q1: READ O$: PRINT O$;: NEXT Z
+170 FOR Z = 1 TO 8: FOR Q = 113 TO 124: GOSUB 3200: NEXT Q: FOR Q1 = 1 TO 3
+180 FOR Q = 105 TO 112: GOSUB 3200: NEXT Q: Q = 125: GOSUB 3200: NEXT Q1: READ O$: PRINT O$;: NEXT Z
 
 REM Place the treasures in random locations
 REM Finish printing "INITIALIZING"
@@ -116,7 +116,7 @@ REM Finish printing "INITIALIZING"
 190 FOR Q = 126 TO 133: Z = FNA(8): GOSUB 3200: NEXT Q: PRINT "G";
 
 REM Add the curses as empty rooms, store their location, and mark them uncursed
-200 Q = 101: FOR A = 1 TO 3: Z = FNA(8): GOSUB 3200: C(A,1) = X, C(A,2) = Y: C(A,3) = Z, C(A,4) = 0
+200 Q = 101: FOR A = 1 TO 3: Z = FNA(8): GOSUB 3200: C(A,1) = X: C(A,2) = Y: C(A,3) = Z: C(A,4) = 0
 
 REM Print " CA" then "S"
 
@@ -135,6 +135,9 @@ REM Record that monster's location as the Runestaff location
 REM Place an extra warp on a random level
 REM Record that warp's location as the Orb of Zot location
 REM Finish printing "CASTLE"
+
+REM Note: the following line originally had no quote mark at the end, but it is
+REM included here to keep the syntax highlighting sane.
 
 230 Q = 109: Z = FNA(8): GOSUB 3200: O(1) = X: O(2) = Y: O(3) = Z: PRINT "TLE"
 
@@ -167,14 +170,14 @@ REM RC - race (1 = hobbit, 2 = elf, 3 = man, 4 = dwarf)
 REM Strength bonus: add 2 * race
 REM Dexterity penalty: subtract 2 * race
 
-270 FOR Q = 1 TO 4: IF LEFT$(R$(Q), 1) == O$ THEN RC = Q: ST = ST + 2 * Q: DX = DX - 2 * Q
+270 FOR Q = 1 TO 4: IF LEFT$(R$(Q), 1) = O$ THEN RC = Q: ST = ST + 2 * Q: DX = DX - 2 * Q
 
 REM If user selected HOBBIT, subtract 4 "other allocation" points
 REM Reset R$(3) name from "MAN" to "HUMAN" if the user selected a valid option
 
 280 NEXT Q: PRINT: OT = OT + 4 * (RC=1): IF RC > 0 THEN R$(3) = "HUMAN": GOTO 300
 
-290 PRINT "** THAT WAS INCORRECT, PLEASE TYPE E, D, M, or H.": GOTO 260
+290 PRINT "** THAT WAS INCORRECT. PLEASE TYPE E, D, M, OR H.": GOTO 260
 
 REM 3290 Input a string, return the leftmost character in O$
 
@@ -224,7 +227,7 @@ REM 3 - Plate
 REM On bad input, insultingly call the player a monster
 
 420 PRINT: PRINT "** ARE YOU A "; R$(RC); " OR "; C$(FNA(12)+12);
-430 PRINT " ? TYPE P,C,L OR N": PRINT: GOTO 380
+430 PRINT " ? TYPE P,C,L, OR N": PRINT: GOTO 380
 
 REM AH - total number of hit points your armor has left
 REM Subtract armor value from GP
@@ -237,7 +240,7 @@ REM 21 - Plate
 
 440 AH = AV * 7: GP = GP - AV * 10: PRINT CHR$(12)
 
-450 PRINT: PRINT "OK, BOLD, "; R$(RC); ", YOU HAVE "; GP; " GP's LEFT": PRINT
+450 PRINT: PRINT "OK, BOLD "; R$(RC); ", YOU HAVE "; GP; " GP's LEFT": PRINT
 
 REM 3390 Prints "Here is a list of $Z you can buy"
 
@@ -267,7 +270,7 @@ REM See if the player wants a lamp
 
 510 PRINT "WANT TO BUY A LAMP FOR 20 GP's ";: GOSUB 3290
 
-520 IF O$ = "Y" THEN LF = 1: GP = GP - 20: IF GP < 20 THEN 540
+520 IF O$ = "Y" THEN LF = 1: GP = GP - 20: GOTO 540
 
 REM If the player didn't enter Y or N, make them do so
 
@@ -283,7 +286,7 @@ REM Q - temp var for quantity of flares to buy
 
 REM ASCII 48 = '0'
 
-570 Q = VAL(O$): PRINT: IF Q > 0 OR ASC(O$) = 48 then 590
+570 Q = VAL(O$): PRINT: IF Q > 0 OR ASC(O$) = 48 THEN 590
 
 580 PRINT "** IF YOU DON'T WANT ANY JUST TYPE 0 (ZERO)": PRINT: GOTO 560
 
@@ -360,7 +363,7 @@ REM If player not blind, choose a random message between 1 - 7.
 REM If player is blind, choose a random message between 2 - 8.
 REM    If 8 chosen, show 4.
 
-700 PRINT: PRINT "YOU ";: Q = FNA(7) + BL: IF Q > 7 then Q = 4
+700 PRINT: PRINT "YOU ";: Q = FNA(7) + BL: IF Q > 7 THEN Q = 4
 
 REM Q
 REM
@@ -384,11 +387,11 @@ REM 7 - Are playing Wizard's Castle
 
 REM Cure blindness with The Opal Eye
 
-790 IF BL + T(4) = 2 THEN PRINT: PRINT C$(29); "CURES YOUR BLINDNESS": BL = 0
+790 IF BL + T(4) = 2 THEN PRINT: PRINT C$(29); " CURES YOUR BLINDNESS": BL = 0
 
 REM Dissolve books with The Blue Flame
 
-800 IF BF + T(6) = 2 THEN PRINT: PRINT C$(31); "DISSOLVES THE BOOK": BF = 0
+800 IF BF + T(6) = 2 THEN PRINT: PRINT C$(31); " DISSOLVES THE BOOK": BF = 0
 
 REM Input a move
 
@@ -432,7 +435,7 @@ REM MOVE: DOWN
 
 990 Z$ = "DOWN": IF PEEK(FND(Z)) = 4 THEN Z = Z + 1: GOTO 1670
 
-1000 PRINT: PRINT "** OH "; R$(RC); ", NO STAIRS GOING "; $Z; " IN HERE": GOTO 620
+1000 PRINT: PRINT "** OH "; R$(RC); ", NO STAIRS GOING "; Z$; " IN HERE": GOTO 620
 
 REM Insult player for being blind, or continue to print map otherwise
 
