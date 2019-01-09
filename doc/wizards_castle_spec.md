@@ -783,6 +783,33 @@ Otherwise the monster rolls to-hit.
 If a hit, the monster causes [damage](#taking-damage) based on [monster
 race](#monsters).
 
+### Player loses combat
+
+If any of the player's stats fall to 0, [they die](#game-over-man).
+
+### Monster loses combat
+
+#### Non-Vendor monster
+
+If a non-vendor monster is defeated, the player receives `1d1000` gold pieces.
+
+If the monster is carrying the [Runestaff](#the-runestaff), the player receives
+it.
+
+#### Vendor
+
+If the player defeats a vendor, they receive:
+
+* Plate armor
+* Sword
+* A Strength Potion giving `1d6` ST
+* A Intelligence Potion giving `1d6` IQ
+* A Dexterity Potion giving `1d6` DX
+* Lamp
+
+> Cosmetic detail: the original game would only list the lamp if the player
+> didn't have it already.
+
 ## Random Messages
 
 Each turn there is a 1/5 chance that a random message will be shown.
