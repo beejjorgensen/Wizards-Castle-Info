@@ -40,6 +40,7 @@ detail the rules for the game.
 * [Recreational Computing, July 1980 issue](https://archive.org/details/1980-07-recreational-computing/page/n9)
 * [Source code from the article](https://gstein.svn.beanstalkapp.com/oss/trunk/wizcastle/wiz.bas)
 * [Inform port of the game](https://www.ifarchive.org/if-archive/games/source/inform/wcastle.inf)
+* [Graphical Windows Port](http://derelllicht.com/winwiz.html)
 * [Gameplay review](http://crpgaddict.blogspot.com/2013/02/game-90-wizards-castle-1980.html)
 * [Wizard's Castle backstory](http://www.armchairarcade.com/neo/node/1381)
 * [Play online 1](https://www.myabandonware.com/game/the-wizard-s-castle-1no/play-1no)
