@@ -5,6 +5,9 @@
 > and mirrored here in the interest of preserving this bit of computing
 > history._
 
+![Exidy Sorcerer](images/sorcerer_clip.jpg)
+***Exidy Sorcerer**
+
 Wed, 06/27/2007 - 12:23pm — Matt Barton
 
 One of the great things about writing a book is that you get to hear so
