@@ -1,6 +1,7 @@
 # The Story of The Wizard's Castle
 
-> _This is reproduced from http://www.armchairarcade.com/neo/node/1381
+> _This is reproduced from
+> [http://www.armchairarcade.com/neo/node/1381](https://web.archive.org/web/20190305222031/http://www.armchairarcade.com/neo/node/1381)
 > and mirrored here in the interest of preserving this bit of computing
 > history._
 
