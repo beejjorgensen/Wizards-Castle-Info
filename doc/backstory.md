@@ -5,8 +5,8 @@
 > and mirrored here in the interest of preserving this bit of computing
 > history._
 
-![Exidy Sorcerer](images/sorcerer_clip.jpg)
-***Exidy Sorcerer**
+![Exidy Sorcerer](images/sorcerer_clip.jpg)\
+***Exidy Sorcerer***
 
 Wed, 06/27/2007 - 12:23pm — Matt Barton
 
