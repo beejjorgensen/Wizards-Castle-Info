@@ -39,7 +39,7 @@ detail the rules for the game.
 * [Wizard's Castle backstory](https://web.archive.org/web/20190717083013/http://www.armchairarcade.com/neo/node/1381)
   * [Wizard's Castle backstory (local mirror)](doc/backstory.md)
 * [Recreational Computing, July 1980 issue (local mirror)](doc/1980-07-recreational-computing.pdf)
-* [Excerpt from _Dungeons and Desktops: The History of Computer Role-Playing Games_](doc/dadhocr-wc.md)
+* [Excerpt from _Dungeons & Desktops: The History of Computer Role-Playing Games_](doc/dadhocr-wc.md)
 
 ### Play Online
 

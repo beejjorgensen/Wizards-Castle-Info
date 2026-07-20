@@ -1,4 +1,4 @@
-[Excerpt from [_Dungeons and Desktops: The History of Computer
+[Excerpt from [_Dungeons & Desktops: The History of Computer
 Role-Playing
 Games_](https://www.amazon.com/Dungeons-Desktops-History-Computer-Role-Playing/dp/1568814119)]
 
