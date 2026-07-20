@@ -17,26 +17,85 @@ D&D-style die rolls are used in this spec, e.g. `2d6`.
 
 ## Unknowns
 
-### `REM"_(C2SLFF4`
+### `REM"_(C2SLFF4` and the PRNG
 
-The first line of the program is:
+These are all related:
 
 ```basic
 10 REM"_(C2SLFF4
+40 POKE 260,218: POKE 261,1: T = USR(0): T = PEEK(-2049)
+80 Q = RND(-(2*T+1))
 ```
 
-Some kind of magic number for Exidy Sorcerer BASIC?
+The `POKE`s and the `USR()` are all about a machine code call. Addresses
+260 and 261 hold the vector for the call when `USR()` executes. 
 
-### Seeding the PRNG
+The `0` in `USR(0)` is converted to 4-byte floating point and stored in
+addresses 447-450. I do not know if this is relevant in this case.
 
-The value in `T` appears to seed the PRNG on line 80, but the details of
-the machine code call and `PEEK` are unknown. (`T` = time???)
+Vector 218 and 1 make little-endian address `1*256+218`, or 0x01DA, or
+474 in decimal.
+
+Address 469 is the start of all BASIC programs. So `USR(0)` will just to
+assembly just after the start of all BASIC programs. Which is
+suspiciously near that `REM` on line `10`!
+
+Assumptions: a line of basic code contains a two-byte "next" pointer and
+a two-byte line number. A `REM` statement tokenizes to one byte. That's
+5 bytes of overhead.
+
+If the assumptions hold, the byte right after the `REM` statement would
+be at 474.
+
+The Sorceror uses ASCII, so we can decode `_(C2SLFF4` into hex:
+
+```
+22
+5F
+28
+43
+32
+53
+4C
+46
+46
+34
+```
+
+and disassemble into Z80 mnemonics:
+
+```
+Addr    Bytes        ASCII    Instruction
+01DA    22 5F 28     " _ (    LD   (285Fh),HL
+01DD    43           C        LD   B,E
+01DE    32 53 4C     2 S L    LD   (4C53h),A
+01E1    46           F        LD   B,(HL)
+01E2    46           F        LD   B,(HL)
+01E3    34           4        INC  (HL)
+```
+
+And that's where the trail runs cold. It's a clean disassembly, but the
+code makes no sense.
+
+The remaining lead is here starting with the `PEEK`:
 
 ```basic
 40 POKE 260,218: POKE 261,1: T = USR(0): T = PEEK(-2049)
-
-80 Q = RND(-(2*T+1)): RESTORE: FOR Q = 1 TO 34: READ C$(Q), I$(Q): NEXT Q
+80 Q = RND(-(2*T+1))
 ```
+
+Line 80 is seeding the PRNG (because we call `RND()` with a negative
+number) with whatever came back in `T`.  (The seed is forced to be odd.
+Apparently some old PRNGs behaved badly with even seeds.)
+
+So `T` comes from address -2049, which is 0xF7FF (63487), or the last
+byte of screen RAM. We can possibly assume that this is the character in
+the lower right of the screen.
+
+That implies that the machine code is loading that location with
+something that is used to seed the PRNG...?
+
+But that's all I've figured so far.
 
 ### Curses bug?
 

@@ -51,6 +51,8 @@ REM Call machine code to get something for random seed??
 40 POKE 260,218: POKE 261,1: T = USR(0): T = PEEK(-2049)
 
 REM FND computes room location in memory
+REM     Maps 1-based X,Y,Q coordinates to -512 to -1, FE00-FFFF
+REM     which is the Exidy Sorcerer custom character set RAM.
 REM FNE tags a room as explored
 
 50 DEF FND(Q) = Q*64 + X*8 + Y - 585 : DEF FNE(Q) = Q + 100 * (Q > 99)
