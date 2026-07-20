@@ -27,7 +27,12 @@ REM 3380: Your Z$ (stat) is now Q
 REM 3390: Prints "Here is a list of $Z you can buy"
 REM 3400: Pretty print location X, Y, Z
 
-REM This magic number corresponds to the following machine code:
+REM According to the documentation:
+REM
+REM "The first remark is a machine language routine to simulate the
+REM RANDOM function."
+REM
+REM The remark data corresponds to the following assembly:
 REM
 REM Addr    Bytes        ASCII    Instruction
 REM 01DA    22 5F 28     " _ (    LD   (285Fh),HL
@@ -38,7 +43,7 @@ REM 01E2    46           F        LD   B,(HL)
 REM 01E3    34           4        INC  (HL)
 REM 01E4    00           (term)   NOP
 REM
-REM But its purpose remains unclear. See the `USR` call, below.
+REM But that seems to make no sense. See the `USR` call, below.
 
 10 REM "_(C2SLFF4
 

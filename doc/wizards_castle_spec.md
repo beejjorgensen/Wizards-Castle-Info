@@ -19,7 +19,9 @@ D&D-style die rolls are used in this spec, e.g. `2d6`.
 
 ### `REM"_(C2SLFF4` and the PRNG
 
-These are all related, I think:
+The article says, "The first remark is a machine language routine to
+simulate the RANDOM function." I think he means `RANDOMIZE`, but I'm not
+entirely certain.
 
 ```basic
 10 REM"_(C2SLFF4
@@ -40,12 +42,11 @@ Address 469 is the start of all BASIC programs. So `USR(0)` will jump to
 assembly just after the start of all BASIC programs. Which is
 suspiciously near that `REM` on line `10`!
 
-Assumptions: a line of basic code contains a two-byte "next" pointer and
-a two-byte line number. A `REM` statement tokenizes to one byte. That's
-5 bytes of overhead.
+A line of basic code contains a two-byte "next" pointer and a two-byte
+line number. A `REM` statement tokenizes to one byte. That's 5 bytes of
+overhead.
 
-If the assumptions hold, the byte right after the `REM` statement would
-be at 474.
+So the byte right after the `REM` statement would be at 474.
 
 The Sorceror uses ASCII, so we can decode `_(C2SLFF4` into hex:
 
@@ -74,8 +75,9 @@ Addr    Bytes        ASCII    Instruction
 01E3    34           4        INC  (HL)
 ```
 
-And that's where the trail runs cold. It's a clean disassembly, but the
-code makes no sense.
+It's a clean disassembly, but the code makes no sense. We've seen this
+code in MAME, and it behaves as poorly as one might expect, running off
+to oblivion until it hits some random `RET` if you're lucky.
 
 The remaining lead is here starting with the `PEEK`:
 
@@ -89,8 +91,8 @@ number) with whatever came back in `T`.  (The seed is forced to be odd.
 Apparently some old PRNGs behaved badly with even seeds.)
 
 So `T` comes from address -2049, which is 0xF7FF (63487), or the last
-byte of screen RAM. We can possibly assume that this is the character in
-the lower right of the screen.
+byte of screen RAM. This is the character in the lower right of the
+screen.
 
 That implies that the machine code is loading that location with
 something that is used to seed the PRNG...? If we assume that the
@@ -101,10 +103,8 @@ magical happens to set that character to something useful.
 However, it doesn't seem like the machine code would actually be
 required. BASIC can `PEEK`, `POKE`, `INP`, and `OUT`, so why not do it
 all in BASIC? I know the author was cramped for space—was that the
-reason?
-
-Please contact me if you learn more. The surefire way to solve it would
-be to step through in an emulator, but I don't have that set up.
+reason? There are also other publishes mechanisms for doing this for the
+Sorcerer.
 
 Resources:
 
