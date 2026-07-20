@@ -39,7 +39,7 @@ lines of code! The game is survived today by a freeware version with
 sprite-based graphics, programmed by a man calling himself "Derelict"
 who also hosts the source code to the original game.
 
-![](images/wc-screenshot.jpg)
+![](images/dadhocr-fig-4.1.jpg)
 
 FIGURE 4.1 _The Wizard's Castle_ is one of the earliest CRPGs for home
 computers. If you wanted to play it, you had to carefully transcribe it,
