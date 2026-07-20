@@ -36,7 +36,7 @@ addresses 447-450. I do not know if this is relevant in this case.
 Vector 218 and 1 make little-endian address `1*256+218`, or 0x01DA, or
 474 in decimal.
 
-Address 469 is the start of all BASIC programs. So `USR(0)` will just to
+Address 469 is the start of all BASIC programs. So `USR(0)` will jump to
 assembly just after the start of all BASIC programs. Which is
 suspiciously near that `REM` on line `10`!
 
