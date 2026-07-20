@@ -42,7 +42,7 @@ detail the rules for the game.
 * [Recreational Computing, July 1980 issue](https://archive.org/details/1980-07-recreational-computing/page/n9)
 * [Source code from the article](https://gstein.svn.beanstalkapp.com/oss/trunk/wizcastle/wiz.bas)
 * [Gameplay review](http://crpgaddict.blogspot.com/2013/02/game-90-wizards-castle-1980.html)
-* [Wizard's Castle backstory](http://www.armchairarcade.com/neo/node/1381)
+* [Wizard's Castle backstory](https://web.archive.org/web/20190717083013/http://www.armchairarcade.com/neo/node/1381)
 
 ### Play Online
 
