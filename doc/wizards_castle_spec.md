@@ -19,7 +19,7 @@ D&D-style die rolls are used in this spec, e.g. `2d6`.
 
 ### `REM"_(C2SLFF4` and the PRNG
 
-These are all related:
+These are all related, I think:
 
 ```basic
 10 REM"_(C2SLFF4
@@ -93,9 +93,24 @@ byte of screen RAM. We can possibly assume that this is the character in
 the lower right of the screen.
 
 That implies that the machine code is loading that location with
-something that is used to seed the PRNG...?
+something that is used to seed the PRNG...? If we assume that the
+character in the lower right of the screen is typically a space (32),
+then it makes no sense to seed the PRNG this way unless something
+magical happens to set that character to something useful.
 
-But that's all I've figured so far.
+However, it doesn't seem like the machine code would actually be
+required. BASIC can `PEEK`, `POKE`, `INP`, and `OUT`, so why not do it
+all in BASIC? I know the author was cramped for space—was that the
+reason?
+
+Please contact me if you learn more. The surefire way to solve it would
+be to step through in an emulator, but I don't have that set up.
+
+Resources:
+
+* Excellent Sorcerer docs and
+  resources](https://www.trailingedge.com/exidy/)
+* [Exidy BASIC Reference](https://trailingedge.com/exidy/exbasictoc.html)
 
 ### Curses bug?
 
@@ -114,30 +129,35 @@ entrance and exits the dungeon to win.
 
 ### Turn Sequence
 
-After the [dungeon](#dungeon) is created, [player](#character-generation) is
-generated, outfitted, and placed at the entrance to the dungeon, this sequence
-of steps repeats until the game is over.
+After the [dungeon](#dungeon) is created,
+[player](#character-generation) is generated, outfitted, and placed at
+the entrance to the dungeon, this sequence of steps repeats until the
+game is over.
 
 The turn counter is initialized to 0.
 
 * Increment turn counter.
 
 * Initial [curse](#curses) effect resolution.
-  * If the player has the Orb of Zot or the Runestaff, curse effects do not take
-    place.
-  * If the player has Lethargy (and no Ruby Red), increment the turn counter.
-  * If the player has The Leech (and no Pale Pearl), subtract `1d5` from GP.
-  * If the player has Forgetfulness (and no Green Gem), unexplore a random room.
+  * If the player has the Orb of Zot or the Runestaff, curse effects do
+    not take place.
+  * If the player has Lethargy (and no Ruby Red), increment the turn
+    counter.
+  * If the player has The Leech (and no Pale Pearl), subtract `1d5` from
+    GP.
+  * If the player has Forgetfulness (and no Green Gem), unexplore a
+    random room.
 
-* Test to see if the player is in a [cursed room](#curses), and enable that
-  curse if so.
+* Test to see if the player is in a [cursed room](#curses), and enable
+  that curse if so.
 
 * Print a [random message](#random-messages).
 
-* If the player is [blind](#blindness) and has the Opal Eye, cure blindness.
+* If the player is [blind](#blindness) and has the Opal Eye, cure
+  blindness.
 
-* If the player has a [book stuck to their hands](#book-stuck-to-hands) and has
-  The Blue Flame, dissolve the book.
+* If the player has a [book stuck to their hands](#book-stuck-to-hands)
+  and has The Blue Flame, dissolve the book.
 
 * Input a move and perform that [action](#regular-actions).
 
@@ -148,8 +168,9 @@ The turn counter is initialized to 0.
 * Resolve that [room's effects](#room-contents).
 
 Certain things like sinkholes, gas chests, and warps (and similarly,
-teleporting) cause the player to move uncommanded. In those cases, roomt effect
-resolution occurs exactly as if the play had walked to that location.
+teleporting) cause the player to move uncommanded. In those cases, roomt
+effect resolution occurs exactly as if the play had walked to that
+location.
 
 ## Dungeon
 
@@ -193,8 +214,8 @@ In the steps below, all rooms are undiscovered unless otherwise noted.
 3. For each level 0-6 `RAND_PLACE` 2 stairs down.
 4. For each of the stairs down, place a stairs up on the level below at
    the same X,Y.
-5. For each level 0-7 `RAND_PLACE` 1 of each type of monster (not including
-   vendors).
+5. For each level 0-7 `RAND_PLACE` 1 of each type of monster (not
+   including vendors).
 6. For each level 0-8 `RAND_PLACE` 3 of each type of item.
 7. For each level 0-8 `RAND_PLACE` 3 vendors.
 8. For each treasure, choose a random level and `RAND_PLACE` the
@@ -207,9 +228,10 @@ In the steps below, all rooms are undiscovered unless otherwise noted.
 
 #### Alternate Generation
 
-Historically, random rooms were selected by repeatedly searching at random until
-an empty room was found. While this might produce fast results on a sparse
-dungeon, it might be irksome to those who want a more regular O(n) solution.
+Historically, random rooms were selected by repeatedly searching at
+random until an empty room was found. While this might produce fast
+results on a sparse dungeon, it might be irksome to those who want a
+more regular O(n) solution.
 
 Additionally, the Runestaff is hidden in an extra monster and the Orb of
 Zot is hidden as an extra warp. This leaks information to the player
@@ -242,12 +264,12 @@ Potential algorithm:
    * Note the entrance location.
    * Note the stairs down locations (levels 0-6 only!)
    * Note the stairs up locations (levels 1-7 only!)
-8. For level 0, swap the item at (3,0,0) with the entrance. (I.e. move the
-   entrance into place.)
+8. For level 0, swap the item at (3,0,0) with the entrance. (I.e. move
+the entrance into place.)
 9. Swap both stairs up locations (levels 1-7 only!) with whatever is at
-   the X,Y coordinates on this level of the stairs down X,Y location on
-   the previous level. (I.e. make sure the stairs up are directly below
-   the stairs down.)
+the X,Y coordinates on this level of the stairs down X,Y location on the
+previous level. (I.e. make sure the stairs up are directly below the
+stairs down.)
 10. Repeat from step 6 for each level.
 
 ## Room Contents
@@ -274,31 +296,33 @@ Historic graphic character corresponding to the item shown.
 
 #### Entrance
 
-If you go north from this room, you exit the dungeon and the game is over.
+If you go north from this room, you exit the dungeon and the game is
+over.
 
 #### Warp
 
-When entering a warp (which does not contain the Orb of Zot), the player is
-teleported to a random X, Y, Z location. The room effects at the new location
-take place as if the player had walked there.
+When entering a warp (which does not contain the Orb of Zot), the player
+is teleported to a random X, Y, Z location. The room effects at the new
+location take place as if the player had walked there.
 
-Note that one of the warps holds the Orb of Zot, and its behavior is different.
-See [The Orb of Zot](#the-orb-of-zot).
+Note that one of the warps holds the Orb of Zot, and its behavior is
+different. See [The Orb of Zot](#the-orb-of-zot).
 
 #### Sinkhole
 
-When entering a sinkhole, the player falls to the same X, Y on the level below.
-Room effects at the new location take place as if the player had walked there.
+When entering a sinkhole, the player falls to the same X, Y on the level
+below. Room effects at the new location take place as if the player had
+walked there.
 
-Note: sinkholes do appear on the bottom level of the dungeon. If the player
-enters one, they "fall" to the topmost level.
+Note: sinkholes do appear on the bottom level of the dungeon. If the
+player enters one, they "fall" to the topmost level.
 
 #### The Orb of Zot
 
 One of the warps contains the Orb of Zot.
 
-If you teleport into this warp, you obtain the Orb of Zot and the Runestaff
-vanishes.
+If you teleport into this warp, you obtain the Orb of Zot and the
+Runestaff vanishes.
 
 In addition, the warp turns into an empty room.
 
@@ -344,11 +368,11 @@ this monster is killed, the Runestaff is transferred to the player.
 
 The Runestaff can be used to teleport to any X, Y, Z location.
 
-If the destination is **not** The Orb of Zot location, then room effects take
-place as if the player had walked into that room.
+If the destination is **not** The Orb of Zot location, then room effects
+take place as if the player had walked into that room.
 
-If the destination is The Orb of Zot, the Runestaff vanishes, and the Orb of Zot
-is transferred to the player.
+If the destination is The Orb of Zot, the Runestaff vanishes, and the
+Orb of Zot is transferred to the player.
 
 ### Treasures
 
@@ -365,20 +389,20 @@ is transferred to the player.
 
 Treasures are found randomly thoughout the dungeon.
 
-If the player picks up a treasure, it is transferred to their inventory and the
-room is marked as empty.
+If the player picks up a treasure, it is transferred to their inventory
+and the room is marked as empty.
 
-Treasures sold or used for bribes are inaccessible for the remainder of the
-game.
+Treasures sold or used for bribes are inaccessible for the remainder of
+the game.
 
 Treasure value is a random number between `1` and `treasure_num * 1500`
 used when selling to the vendors.
 
-> In the original game, the value was computed each time you traded with any
-> vendor. This allowed the player to just keep coming back until they got a high
-> number. An alternative implementation might set the value one time at the
-> beginning of the game in a range, and then have vendors offer a fixed,
-> per-vendor plus or minus on that value.
+> In the original game, the value was computed each time you traded with
+> any vendor. This allowed the player to just keep coming back until
+> they got a high number. An alternative implementation might set the
+> value one time at the beginning of the game in a range, and then have
+> vendors offer a fixed, per-vendor plus or minus on that value.
 
 ## Weapons
 
@@ -407,22 +431,23 @@ Initial durability is computed as `armor_num * 7`.
 
 Initial Price is computed as `armor_num * 10`.
 
-Points of [damage](#taking-damage) absorbed are subtracted from the Durability
-value. When Durability falls to 0, the armor is destroyed.
+Points of [damage](#taking-damage) absorbed are subtracted from the
+Durability value. When Durability falls to 0, the armor is destroyed.
 
 ## Recipes
 
-If more than 60 turns had elapsed since the last kill OR it was the first kill
-of the game, the player would see a message similar to this when a monster was
-killed:
+If more than 60 turns had elapsed since the last kill OR it was the
+first kill of the game, the player would see a message similar to this
+when a monster was killed:
 
 ```
 YOU SPEND AN HOUR EATING KOBOLD STEW
 ```
 
-This message was constructed by choosing a random monster and a random suffix,
-below. The suffix `WICH` was appended directly to the monster name (e.g.
-`BEARWICH`), while the others were separated by a space (e.g. `GARGOYLE ROAST`).
+This message was constructed by choosing a random monster and a random
+suffix, below. The suffix `WICH` was appended directly to the monster
+name (e.g. `BEARWICH`), while the others were separated by a space (e.g.
+`GARGOYLE ROAST`).
 
 | Recipe | Note                                     |
 |--------|------------------------------------------|
@@ -467,8 +492,8 @@ You can buy single flares for 1 GP each.
 
 ## Curses
 
-There are three curses, each one located in a random empty room in the dungeon.
-If you enter this room, you catch the curse.
+There are three curses, each one located in a random empty room in the
+dungeon. If you enter this room, you catch the curse.
 
 | Curse         | Warding Treasure | Effect                                                       |
 |---------------|------------------|--------------------------------------------------------------|
@@ -476,15 +501,16 @@ If you enter this room, you catch the curse.
 | The Leech     | The Pale Pearl   | Lose `1d5` gold pieces per turn                              |
 | Forgetfulness | The Green Gem    | Each turn, mark a random room as unexplored                  |
 
-With Forgetfulness, the random room is marked unexplored even if it was already
-unexplored.
+With Forgetfulness, the random room is marked unexplored even if it was
+already unexplored.
 
-Possessing the Warding Treasure causes the effects of the curse to be ignored that turn.
+Possessing the Warding Treasure causes the effects of the curse to be
+ignored that turn.
 
 Curses are never cured.
 
-If you have the curse and you sell/bribe with the Warding Treasure, the effects
-of the curse will start again.
+If you have the curse and you sell/bribe with the Warding Treasure, the
+effects of the curse will start again.
 
 > The original code for this seems to have a bug:
 >
@@ -492,21 +518,23 @@ of the curse will start again.
 > 680 IF PEEK(FND(Z)) = 1 THEN FOR Q = 1 TO 3: C(Q,4) = -(C(Q,1)=X) * (C(Q,2)=Y) * (C(Q,3)=Z): NEXT
 > ```
 >
-> This is saying, if this is an empty room, then Curse `Q` is active if the player
-> X, Y, and Z are the same as Curse `Q`'s X, Y, and Z.
+> <!-- ` -->
+> This is saying, if this is an empty room, then Curse `Q` is active if
+> the player X, Y, and Z are the same as Curse `Q`'s X, Y, and Z.
 >
 > (`-1` and `0` are TRUE and FALSE in BASIC boolean expressions.)
 >
 > Sounds reasonable.
 >
-> But it's also saying, if this is an empty room, then Curse `Q` is **inactive**
-> if the player X, Y, and Z are **not** the same as Curse `Q`'s X, Y, and Z.
+> But it's also saying, if this is an empty room, then Curse `Q` is
+> **inactive** if the player X, Y, and Z are **not** the same as Curse
+> `Q`'s X, Y, and Z.
 >
-> So you are cured of the curse when you step into another, non-cursed empty
-> room, which doesn't sound nearly as reasonable.
+> So you are cured of the curse when you step into another, non-cursed
+> empty room, which doesn't sound nearly as reasonable.
 >
-> The rest of the code seems to assume that the curse is never cured and that the
-> treasures simply cause the effects to be ignored. 
+> The rest of the code seems to assume that the curse is never cured and
+> that the treasures simply cause the effects to be ignored. 
 
 ## Regular Actions
 
@@ -516,13 +544,13 @@ This moves you a cardinal direction in the dungeon.
 
 The dungeon wraps around at each edge.
 
-Moving North from the Entrance is a special case that exits the dungeon and ends
-the game.
+Moving North from the Entrance is a special case that exits the dungeon
+and ends the game.
 
 ### Move Up or Down
 
-If you are on stairs up or down, you may move up to the previous level or down
-to the next level.
+If you are on stairs up or down, you may move up to the previous level
+or down to the next level.
 
 There are no stairs up at the top level.
 
@@ -548,7 +576,8 @@ Historically, the map has been shown in text form as follows:
 
      ?    ?    ?    ?    ?    ?    ?    ?
 
-The room marked in brackets `<X>` is the room the player is currently in.
+The room marked in brackets `<X>` is the room the player is currently
+in.
 
 Rooms marked with `?` are unexplored.
 
@@ -556,15 +585,15 @@ You cannot view the map if you are [blind](#blindness).
 
 ### Light a flare
 
-A flare will "explore" the 8 surrounding squares of the level, wrapping around
-if necessary.
+A flare will "explore" the 8 surrounding squares of the level, wrapping
+around if necessary.
 
 You cannot light a flare if you are [blind](#blindness).
 
 ### Shine the lamp
 
-The player can shine the lamp, if possessed, N, S, W, or E to explore that
-single neighboring room without moving there.
+The player can shine the lamp, if possessed, N, S, W, or E to explore
+that single neighboring room without moving there.
 
 You cannot shine the lamp if you are [blind](#blindness).
 
@@ -587,17 +616,19 @@ You can still open a book even if you're blind.
 
 #### Book stuck to hands
 
-You can't attack with hand [weapons](#weapons) while you have a book stuck to
-your hands. You may still attack with [spells](#spells).
+You can't attack with hand [weapons](#weapons) while you have a book
+stuck to your hands. You may still attack with [spells](#spells).
 
-If you have the Blue Flame at the beginning of a turn, the book is dissolved.
+If you have the Blue Flame at the beginning of a turn, the book is
+dissolved.
 
 ### Open a chest
 
-If the player opens a chest, there are different chances of different effects.
+If the player opens a chest, there are different chances of different
+effects.
 
-Once a chest is opened, it is replaced by an empty room, except in the case of a
-gas chest.
+Once a chest is opened, it is replaced by an empty room, except in the
+case of a gas chest.
 
 | Probability | Effect            |
 |:-----------:|-------------------|
@@ -614,8 +645,8 @@ The chest is removed from the map.
 #### Poison gas chest
 
 1. Add 20 to turn counter.
-2. Move the player a random direction (N, S, W, E) as if the player had walked
-   that way.
+2. Move the player a random direction (N, S, W, E) as if the player had
+   walked that way.
 
 The chest remains on the map.
 
@@ -661,8 +692,8 @@ If you drink from a pool, one of 8 things happen with equal probability.
 
 ### Teleport
 
-If you have the Runestaff, you can teleport to any X, Y, Z location. See [The
-Runestaff](#the-runestaff).
+If you have the Runestaff, you can teleport to any X, Y, Z location. See
+[The Runestaff](#the-runestaff).
 
 ### Quit
 
@@ -672,8 +703,8 @@ The game is over.
 
 Being blind has a number of mostly ill effects:
 
-* In the [random messages](#random-messages), `YOU SEE A BAT` is replaced by
-  `YOU STEPPED ON A FROG`.
+* In the [random messages](#random-messages), `YOU SEE A BAT` is
+  replaced by `YOU STEPPED ON A FROG`.
 * Monsters get the first attack.
 * Your to-hit worsens to `DX < 1d20 + 3`. See [Combat](#combat).
 * Your to-dodge worsens to `DX < 3d7 + 3`. See [Combat](#combat).
@@ -683,11 +714,13 @@ Being blind has a number of mostly ill effects:
 * You can't see the [the map](#show-the-map).
 * You can't see your X, Y, Z location.
 
-If you have the Opal Eye at the beginning of a turn, your blindness is cured.
+If you have the Opal Eye at the beginning of a turn, your blindness is
+cured.
 
 ## Vendor Interactions
 
-If the vendors are angry at the player, [combat](#combat) begins as normal.
+If the vendors are angry at the player, [combat](#combat) begins as
+normal.
 
 Otherwise, the player can:
 
@@ -695,30 +728,32 @@ Otherwise, the player can:
 * Attack
 * Ignore
 
-Either zero vendors are angry or all vendors are angry. Anger is not tracked
-per-vendor.
+Either zero vendors are angry or all vendors are angry. Anger is not
+tracked per-vendor.
 
 ### Trade
 
 #### Sell Treasures
 
-Vendors will offer to buy any treasures you carry for their [value](#treasures).
+Vendors will offer to buy any treasures you carry for their
+[value](#treasures).
 
 #### Buy Armor
 
-The player can buy any type of armor, even if is a downgrade, for the [vendor
-price](#armor). Only one armor may be possessed at a time.
+The player can buy any type of armor, even if is a downgrade, for the
+[vendor price](#armor). Only one armor may be possessed at a time.
 
 The armor is brand new at full durability.
 
 #### Buy Weapons
 
-The player can buy any type of weapon, even if is a downgrade, for the [vendor
-price](#weapons). Only one weapon may be possessed at a time.
+The player can buy any type of weapon, even if is a downgrade, for the
+[vendor price](#weapons). Only one weapon may be possessed at a time.
 
 #### Buy Potions
 
-The player can purchase any number of potions of DX, IQ, or ST for 1000 GP each.
+The player can purchase any number of potions of DX, IQ, or ST for 1000
+GP each.
 
 Each potion adds `1d6` to the given stat up to a max of 18.
 
@@ -728,8 +763,8 @@ The player can purchase a lamp for 1000 GP.
 
 ### Attack
 
-If you choose to attack, all vendors become angry, and [combat](#combat) begins
-as normal.
+If you choose to attack, all vendors become angry, and [combat](#combat)
+begins as normal.
 
 All vendors remain angry until one is successfully [bribed](#bribe).
 
@@ -739,8 +774,8 @@ The turn is over with no effect.
 
 ## Combat
 
-Upon encountering a monster or angry vendor, the player gets the first attack
-unless one or more of the following is true:
+Upon encountering a monster or angry vendor, the player gets the first
+attack unless one or more of the following is true:
 
 * You are afflicted by the curse of [Lethargy](#curses)
 * You're [blind](#blindness)
@@ -761,13 +796,14 @@ The player gets one action during their attack:
 
 This is a melee attack.
 
-If you attack without a weapon, your turn is forfeit and the monster plays.
+If you attack without a weapon, your turn is forfeit and the monster
+plays.
 
-> A variant might prevent attacks if the player has no weapon, and allow them to
-> choose another action.
+> A variant might prevent attacks if the player has no weapon, and allow
+> them to choose another action.
 
-If you attack with a book stuck to your hands, your turn if forfeit and the
-monster plays.
+If you attack with a book stuck to your hands, your turn if forfeit and
+the monster plays.
 
 Otherwise, player rolls to-hit.
 
@@ -779,38 +815,40 @@ If blind:
 
 * Player hits if DX >= `1d20` + 3
 
-If the player hits, the monster loses the damage value of the weapon from its
-HP.
+If the player hits, the monster loses the damage value of the weapon
+from its HP.
 
 #### Retreat
 
 If the player chooses to retreat, the monster [gets one last
-attack](#monster-attacks), and then the player escapes. (Assuming they survive.)
+attack](#monster-attacks), and then the player escapes. (Assuming they
+survive.)
 
 The player chooses to retreat N, S, W, or E and walks to that room.
 
 #### Bribe
 
-If this is the first iteration of combat and the player moved first, the player
-may also attempt to bribe.
+If this is the first iteration of combat and the player moved first, the
+player may also attempt to bribe.
 
-If the player tries to bribe with no treasures, their turn is forfeit and the
-monster plays.
+If the player tries to bribe with no treasures, their turn is forfeit
+and the monster plays.
 
-If the player has treasures, the monster will select one at random that it
-wants.
+If the player has treasures, the monster will select one at random that
+it wants.
 
-* If the player agrees, combat ceases and the player is prompted for their next
-  move.
+* If the player agrees, combat ceases and the player is prompted for
+  their next move.
 
 * If the player disagrees, combat continues with the monster's attack.
 
-If the player successfully bribes a vendor, all vendors become friendly again.
+If the player successfully bribes a vendor, all vendors become friendly
+again.
 
 #### Cast a Spell
 
-If this is the first iteration of combat and the player moved first, and the
-player has IQ > 14, the player may also cast a spell.
+If this is the first iteration of combat and the player moved first, and
+the player has IQ > 14, the player may also cast a spell.
 
 | Spell      |          Cost          |    Duration   | Effect
 |------------|:----------------------:|:-------------:|--------------------------------------------------------|
@@ -818,21 +856,21 @@ player has IQ > 14, the player may also cast a spell.
 | Fireball   | 1 point ST, 1 point IQ |      ---      | Monster loses `2d7` HP                                 |
 | Deathspell |           ---          |      ---      | If IQ < 15 + `1d4` then player dies, else monster dies |
 
-If ST or IQ fall below 1, the player dies immediately and before the spell's
-effects resolve.
+If ST or IQ fall below 1, the player dies immediately and before the
+spell's effects resolve.
 
 Web breakage occurs just before the start of the monster attack.
 
-Fireball and Deathspell resolve on the spot. If the monster is still alive, the
-monster continues with its attack.
+Fireball and Deathspell resolve on the spot. If the monster is still
+alive, the monster continues with its attack.
 
 ### Monster attacks
 
-Just before the monster attacks, the web counter, if any, decrements and the web
-breaks if necessary.
+Just before the monster attacks, the web counter, if any, decrements and
+the web breaks if necessary.
 
-If the web is unbroken, the monster cannot attack, and the turn passes back to
-the player.
+If the web is unbroken, the monster cannot attack, and the turn passes
+back to the player.
 
 Otherwise the monster rolls to-hit.
 
@@ -850,10 +888,11 @@ If any of the player's stats fall to 0, [they die](#game-over-man).
 
 #### Non-Vendor monster
 
-If a non-vendor monster is defeated, the player receives `1d1000` gold pieces.
+If a non-vendor monster is defeated, the player receives `1d1000` gold
+pieces.
 
-If the monster is carrying the [Runestaff](#the-runestaff), the player receives
-it.
+If the monster is carrying the [Runestaff](#the-runestaff), the player
+receives it.
 
 #### Vendor
 
@@ -866,8 +905,8 @@ If the player defeats a vendor, they receive:
 * A Dexterity Potion giving `1d6` DX
 * Lamp
 
-> Cosmetic detail: the original game would only list the lamp if the player
-> didn't have it already.
+> Cosmetic detail: the original game would only list the lamp if the
+> player didn't have it already.
 
 ## Random Messages
 
@@ -885,11 +924,11 @@ One of the following messages is shown with equal probability:
 | You feel like you're being watched |                                                          |
 | You are playing Wizard's Castle    |                                                          |
 
-If the player is [blind](#blindness), then "you see a bat fly by" is replaced by
-"you stepped on a frog".
+If the player is [blind](#blindness), then "you see a bat fly by" is
+replaced by "you stepped on a frog".
 
-> This could be simplified to merely not show any messages that had anything to
-> do with seeing, and not by duplicating another message.
+> This could be simplified to merely not show any messages that had
+> anything to do with seeing, and not by duplicating another message.
 
 ## Taking Damage
 
