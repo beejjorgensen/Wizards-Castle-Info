@@ -75,6 +75,10 @@ Addr    Bytes        ASCII    Instruction
 01E3    34           4        INC  (HL)
 ```
 
+There's a `NOP` right after that from the BASIC null line terminator.
+Then a bunch of garbage instructions that map to the continuing
+tokenized BASIC code.
+
 It's a clean disassembly, but the code makes no sense. We've seen this
 code in MAME, and it behaves as poorly as one might expect, running off
 to oblivion until it hits some random `RET` if you're lucky.
@@ -108,7 +112,7 @@ Sorcerer.
 
 Resources:
 
-* Excellent Sorcerer docs and
+* [Excellent Sorcerer docs and
   resources](https://www.trailingedge.com/exidy/)
 * [Exidy BASIC Reference](https://trailingedge.com/exidy/exbasictoc.html)
 
