@@ -27,10 +27,23 @@ REM 3380: Your Z$ (stat) is now Q
 REM 3390: Prints "Here is a list of $Z you can buy"
 REM 3400: Pretty print location X, Y, Z
 
-REM No idea what this magic number does
+REM This magic number corresponds to the following machine code:
+REM
+REM Addr    Bytes        ASCII    Instruction
+REM 01DA    22 5F 28     " _ (    LD   (285Fh),HL
+REM 01DD    43           C        LD   B,E
+REM 01DE    32 53 4C     2 S L    LD   (4C53h),A
+REM 01E1    46           F        LD   B,(HL)
+REM 01E2    46           F        LD   B,(HL)
+REM 01E3    34           4        INC  (HL)
+REM 01E4    00           (term)   NOP
+REM
+REM But its purpose remains unclear. See the `USR` call, below.
 
 10 REM "_(C2SLFF4
 
+REM Clear all the variables and set the string length to 60
+REM
 REM C$ names of all the castle contents
 REM I$ abbreviations for all the possible castle contents
 REM R$ names of the 4 races
@@ -43,10 +56,23 @@ REM C location and status of the curses
 REM T status flags of the treasures (1 = player owns)
 REM O location of the Orb of Zot
 REM R location of the Runestaff
+REM
+REM Clear tne screen and print the status.
 
 30 DIM C(3,4), T(8), O(3), R(3): PRINT CHR$(12); "Creating Arrays"
 
-REM Call machine code to get something for random seed??
+REM The `USR` call gets us to address 1*256+218, or 474 (0x1DA) which is
+REM the start of the machine code, above.
+REM
+REM The argument `0` is converted to a 4-byte float (all zeros) and
+REM stored at 0x01BF. This does not appear to be used. The return value
+REM is unclear, but T is overwritten by the next `PEEK` in any case.
+REM (BASIC requires the return value from `USR()` to be used.)
+REM
+REM Address -2049 is text screen memory, specifically the lower right
+REM hand corner of the screen. Seems like, in the absense of anything
+REM else, this would return 32 almost every time. See the note while
+REM seeding the PRNG, below.
 
 40 POKE 260,218: POKE 261,1: T = USR(0): T = PEEK(-2049)
 
@@ -66,7 +92,17 @@ REM FNB causes wraparound at borders
 
 70 DEF FNA(Q) = 1 + INT(RND(8)*Q): DEF FNB(Q) = Q + 8 * ((Q=9)-(Q=0))
 
-REM Seed random number with time??
+REM Seed random number with some function of `T`. This holds the value
+REM from the earlier `PEEK(-2049)`. 2*T+1 forces it to be odd, which
+REM seems to be a common trick to improve random numbers with cheesy
+REM PRNGs. Negative means "seed the generator" as opposed to "get the
+REM next random number".
+REM
+REM This is confusing since T would normally very-likely be 32, leading
+REM to the same sequence every game. This implies that the weird machine
+REM code called right before T is initialized has something to do with
+REM it. But the machine code makes no sense.
+REM
 REM Read in names of castle contents and abbreviations for castle contents
 
 80 Q = RND(-(2*T+1)): RESTORE: FOR Q = 1 TO 34: READ C$(Q), I$(Q): NEXT Q
