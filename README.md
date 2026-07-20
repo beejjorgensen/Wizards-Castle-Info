@@ -21,28 +21,25 @@ detail the rules for the game.
 
 --Brian "Beej Jorgensen" Hall, <beej@beej.us>
 
-## What's Here
-
-### Docs
+## Docs
 
 * [The Spec](doc/wizards_castle_spec.md)
-* [Wizard's Castle backstory (local mirror)](doc/backstory.md)
-* [Recreational Computing, July 1980 issue (local mirror)](doc/1980-07-recreational-computing.pdf)
 
-### Source
+## Source
 
 * [Source](src/castle.bas)
 * [Source, liberally commented](src/castle_commented.bas)
 * [Source, MBASIC port](src/castle_mbasic.bas)
 
-## Elsewhere
-
-### Reading
+## Reading
 
 * [Recreational Computing, July 1980 issue](https://archive.org/details/1980-07-recreational-computing/page/n9)
 * [Source code from the article](https://gstein.svn.beanstalkapp.com/oss/trunk/wizcastle/wiz.bas)
 * [Gameplay review](http://crpgaddict.blogspot.com/2013/02/game-90-wizards-castle-1980.html)
 * [Wizard's Castle backstory](https://web.archive.org/web/20190717083013/http://www.armchairarcade.com/neo/node/1381)
+  * [Wizard's Castle backstory (local mirror)](doc/backstory.md)
+* [Recreational Computing, July 1980 issue (local mirror)](doc/1980-07-recreational-computing.pdf)
+* [Excerpt from _Dungeons and Desktops: The History of Computer Role-Playing Games_](doc/dadhocr-wc.md)
 
 ### Play Online
 
