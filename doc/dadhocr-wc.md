@@ -31,7 +31,7 @@ purchase armor, weapons, lamps, and flares. There are also magical
 items, such as a green gem that prevents memory loss, an opal eye that
 cures blindness, or manuals that permanently boost stats. Again, what's
 so impressive about this game is that all of this was crammed into 5,000
-[_It was actually 341 lines of BASIC -Beej_] lines of code! The game is
+lines of code! [_It was actually 341 lines of BASIC. -Beej_] The game is
 survived today by a freeware version with sprite-based graphics,
 programmed by a man calling himself "Derelict" who also hosts the source
 code to the original game.
