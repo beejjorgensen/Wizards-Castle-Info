@@ -1,10 +1,6 @@
----------
-
 [Excerpt from [_Dungeons and Desktops: The History of Computer
 Role-Playing
 Games_](https://www.amazon.com/Dungeons-Desktops-History-Computer-Role-Playing/dp/1568814119)]
-
----------
 
 # _The Wizard's Castle_ and _Eamon_
 
@@ -35,9 +31,10 @@ purchase armor, weapons, lamps, and flares. There are also magical
 items, such as a green gem that prevents memory loss, an opal eye that
 cures blindness, or manuals that permanently boost stats. Again, what's
 so impressive about this game is that all of this was crammed into 5,000
-lines of code! The game is survived today by a freeware version with
-sprite-based graphics, programmed by a man calling himself "Derelict"
-who also hosts the source code to the original game.
+[_It was actually 341 lines of BASIC -Beej_] lines of code! The game is
+survived today by a freeware version with sprite-based graphics,
+programmed by a man calling himself "Derelict" who also hosts the source
+code to the original game.
 
 ![](images/dadhocr-fig-4.1.jpg)
 
