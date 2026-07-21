@@ -48,6 +48,7 @@ detail the rules for the game.
 
 ### Ports
 
+* [BASIC](src/castle_bas.bas) for the [Bas interpreter](https://www.moria.de/~michael/bas/)
 * [Rust](https://github.com/beejjorgensen/Wizards-Castle-Rust)
 * [Rust Ncurses](https://github.com/beejjorgensen/Wizards-Castle-Ncurses)
 * [Inform](https://www.ifarchive.org/if-archive/games/source/inform/wcastle.inf)
