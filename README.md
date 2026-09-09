@@ -43,8 +43,9 @@ detail the rules for the game.
 
 ### Play Online
 
-* [Play online 1](https://www.myabandonware.com/game/the-wizard-s-castle-1no/play-1no)
-* [Play online 2](https://archive.org/details/TheWizardsCastle_1020)
+* [MyAbandonware](https://www.myabandonware.com/game/the-wizard-s-castle-1no/play-1no)—emulated DOS version
+* [Internet Archive](https://archive.org/details/TheWizardsCastle_1020)—emulated DOS version
+* [Modern web version](https://wizardscastle.netlify.app/)
 
 ### Ports
 
